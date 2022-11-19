@@ -1,0 +1,6 @@
+C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.DAL\bin\Debug\FoodDelivery.DAL.dll
+C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.DAL\bin\Debug\FoodDelivery.DAL.pdb
+C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.dll
+C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.pdb
