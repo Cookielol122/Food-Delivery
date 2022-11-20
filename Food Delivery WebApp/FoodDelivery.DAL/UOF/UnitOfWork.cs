@@ -58,9 +58,25 @@
             }
         }
 
+
+        #region Dispose:
+        bool disposed = false;
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                    Db.Dispose();
+
+                this.disposed = true;
+            }
+        }
+
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
         }
+        #endregion
     }
 }

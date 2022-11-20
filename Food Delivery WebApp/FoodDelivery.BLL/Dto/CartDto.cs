@@ -1,6 +1,6 @@
-﻿namespace FoodDelivery.DAL.Entities
+﻿namespace FoodDelivery.BLL.Dto
 {
-    public class ShoppingCart 
+    public class CartDto : Interfaces.IModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
