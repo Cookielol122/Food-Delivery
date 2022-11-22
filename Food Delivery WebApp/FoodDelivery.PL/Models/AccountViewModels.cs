@@ -70,15 +70,23 @@ namespace FoodDelivery.PL.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Пароль {0} повинен містити хоча б {2} символ.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Підтвердження паролю")]
+        [Compare("Password", ErrorMessage = "Підтвердити пароль - обовязкове поле!")]
         public string ConfirmPassword { get; set; }
+        // Auxiliary fields:
+        public string Last_Name { get; set; }
+        [Required(ErrorMessage ="Ім'я обовязкове поле!")]
+        public string Firs_Name { get; set; }
+        public string Phone { get; set; }
+        public string Role { get; set; }
+        public System.DateTime DateOfRegister{ get; set; }
+        public int UserId { get; set; }
     }
 
     public class ResetPasswordViewModel

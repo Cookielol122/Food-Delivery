@@ -1,63 +1,86 @@
-﻿@using FoodDelivery.PL.Models
-@model LoginViewModel
+﻿@model FoodDelivery.PL.Models.LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    Layout = null;
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Login as Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/LoginForm/css/style.css")">
+
+</head>
+<body class="img js-fullheight" style="background-image: url(@Url.Content("~/Content/LoginForm/images/bg.jpg"));">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken();
+        <section class="ftco-section">
+            <div class="container">
+                @if (ViewBag.IsError == true)
+                {
+                    <h5 style="text-align:center;color:red;font-family:'Palatino Linotype'">
+                        @ViewBag.Error
+                    </h5>
+                }
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center mb-5">
+                        <h2 class="heading-section">Форма Входу</h2>
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="login-wrap p-0">
+                            <h3 class="mb-4 text-center">Увійти</h3>
+                            <form action="#" class="signin-form">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.Email, new { placeholder = "Email:", @class = "form-control", style = "color:white" })<br />
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", style = "font-size:small" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.PasswordFor(p => p.Password, new { placeholder = "Пароль:", id = "password-field", @class = "form-control", style = "color:white" })<br />
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", style = "font-size:small" })
+                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+                                </div>
+                                <div class="form-group d-md-flex">
+                                    <div class="w-50">
+                                        <label class="checkbox-wrap checkbox-primary">
+                                            Remember Me
+                                            <input type="checkbox" checked>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="w-50 text-md-right">
+                                        <a href="#" style="color: #fff">Forgot Password</a>
+                                    </div>
+                                </div>
+                            </form>
+                            @*<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>*@
+                            @*<div class="social d-flex text-center">
+                                    <a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+                                    <a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+                                </div>*@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
+            </div>
         </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        <script src="@Url.Content("~/Content/LoginForm/js/jquery.min.js")"></script>
+        <script src="@Url.Content("~/Content/LoginForm/js/popper.js")"></script>
+        <script src="@Url.Content("~/Content/LoginForm/js/bootstrap.min.js")"></script>
+        <script src="@Url.Content("~/Content/LoginForm/js/main.js")"></script>
+    }
+</body>
+</html>
+
+

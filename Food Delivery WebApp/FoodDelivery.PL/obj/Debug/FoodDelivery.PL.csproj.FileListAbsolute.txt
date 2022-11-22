@@ -106,3 +106,6 @@ C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.PL\obj\Debug\FoodDe
 C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.PL\obj\Debug\FoodDelivery.PL.csproj.CopyComplete
 C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.PL\obj\Debug\FoodDelivery.PL.dll
 C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.PL\obj\Debug\FoodDelivery.PL.pdb
+C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.PL\obj\Debug\FoodDelivery.PL.Migrations.InitialCreate.resources
+C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.PL\obj\Debug\FoodDelivery.PL.csproj.GenerateResource.cache
+C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.PL\obj\Debug\FoodDelivery.PL.Migrations.fooddelivery.resources

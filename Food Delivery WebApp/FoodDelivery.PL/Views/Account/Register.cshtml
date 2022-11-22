@@ -1,41 +1,94 @@
 ﻿@model FoodDelivery.PL.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    Layout = null;
 }
 
-<h2>@ViewBag.Title.</h2>
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Login as Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/LoginForm/css/style.css")">
+
+</head>
+<body class="img js-fullheight" style="background-image: url(@Url.Content("~/Content/LoginForm/images/bg.jpg"));">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken();
+        <section class="ftco-section">
+            <div class="container">
+                @if (ViewBag.IsError == true)
+                {
+                    <h5 style="text-align:center;color:red;font-family:'Palatino Linotype'">
+                        @ViewBag.Error
+                    </h5>
+                }
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center mb-5">
+                        <h2 class="heading-section">Форма Регестрації</h2>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="login-wrap p-0">
+                            <h3 class="mb-4 text-center">Регестрація</h3>
+                            <form action="#" class="signin-form">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.Firs_Name, new { placeholder = "Ім'я:", @class = "form-control", style = "color:white" })<br />
+                                    @Html.ValidationMessageFor(model => model.Firs_Name, "", new { @class = "text-danger", style = "font-size:small" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.Last_Name, new { placeholder = "Прізвище:", @class = "form-control", style = "color:white" })<br />
+                                    @Html.ValidationMessageFor(model => model.Last_Name, "", new { @class = "text-danger", style = "font-size:small" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.Email, new { placeholder = "Email:", @class = "form-control", style = "color:white" })<br />
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", style = "font-size:small" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.Phone, new { placeholder = "Мобільний номер:", @class = "form-control", style = "color:white" })<br />
+                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger", style = "font-size:small" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.Email, new { placeholder = "Email:", @class = "form-control", style = "color:white" })<br />
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", style = "font-size:small" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.Password, new { placeholder = "Пароль:", @class = "form-control", style = "color:white" })<br />
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", style = "font-size:small" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.ConfirmPassword, new { placeholder = "Підтвердити пароль:", @class = "form-control", style = "color:white" })<br />
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger", style = "font-size:small" })
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary submit px-3">Зарегеструватися</button>
+                                </div>
+                            </form>
+                            <p class="w-100 text-center">&mdash; < Повернутисья назад &mdash;</p>
+                            @*<div class="social d-flex text-center">
+                                    <a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+                                    <a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src="@Url.Content("~/Content/LoginForm/js/jquery.min.js")"></script>
+        <script src="@Url.Content("~/Content/LoginForm/js/popper.js")"></script>
+        <script src="@Url.Content("~/Content/LoginForm/js/bootstrap.min.js")"></script>
+        <script src="@Url.Content("~/Content/LoginForm/js/main.js")"></script>
+    }
+</body>
+</html>
+
+

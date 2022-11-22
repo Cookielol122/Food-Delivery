@@ -12,6 +12,13 @@ using FoodDelivery.PL.Models;
 
 namespace FoodDelivery.PL.Controllers
 {
+    public enum Role
+    {
+        Guest,
+        RegisteredUser,
+        Admin
+    };
+
     [Authorize]
     public class AccountController : Controller
     {
@@ -24,7 +31,7 @@ namespace FoodDelivery.PL.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -36,9 +43,9 @@ namespace FoodDelivery.PL.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -113,7 +120,20 @@ namespace FoodDelivery.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var curr = UserManager.Users.ToList();
+                int cntId = curr.Count;
+                var dReg = DateTime.Now;
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Firs_Name = model.Firs_Name,
+                    Last_Name = model.Last_Name,
+                    Role = Role.RegisteredUser.ToString(),
+                    UserId = cntId++,
+                    DateOfRegister = dReg
+          
+            };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -159,7 +179,7 @@ namespace FoodDelivery.PL.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -173,7 +193,7 @@ namespace FoodDelivery.PL.Controllers
             }
         }
         #endregion
-               
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
