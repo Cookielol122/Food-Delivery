@@ -9,31 +9,38 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
+    <div class="col-md-pull-2" @*style="background-image: linear-gradient(transparent, yellow, red, transparent)"*@>
+        <header>
+            <nav id="nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-inverse-info"
+                 style="background-image: linear-gradient( blue, blue); border: 2px solid blue; border-radius: 0px; padding: 9px ">
+                <div class="container-fluid" style="">
+                    @Html.ActionLink("Food Delivery", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "hompg" })
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse" style="text-align:center">
+                        <div class="navbar-nav">
+                            &nbsp;                        &nbsp;                        &nbsp;                        &nbsp;                        &nbsp;                &nbsp;
+                            @Html.ActionLink("Contacts", "MainPage", "Home", new { param = "Contacts" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Delivery", "MainPage", "Home", new { param = "Delivery" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Payments", "MainPage", "Home", new { param = "Payments" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Videos", "MainPage", "Home", new { param = "Videos" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Cart", "MainPage", "Home", new { isShopCart = "cart" }, new { id = "btn", @class = "nav-item nav-link" })
+                        </div>
+                        <div class="navbar-nav ms-auto">
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
     </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Food Delivery</p>
         </footer>
     </div>
 
@@ -42,3 +49,55 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
+<style>
+    #btn {
+        font-size:large;
+        margin-right:10px;
+        border: 0.1px solid transparent;
+        border-radius: 9px;
+        font-family: Palatino Linotype;
+        font-weight: bold;
+        color: white;
+    }
+
+        #btn:hover {
+            color: yellow;
+        }
+
+        #btn:active {
+            color: gold;
+        }
+
+    #hompg {
+        margin-left:60px;
+        border-radius: 9px;
+        color: white;
+        padding: 9px;
+        background-color: #8e44ad;
+        border: 0.1px solid #8e44ad;
+        background-image: linear-gradient(violet, blue);
+        font-weight: bold;
+        font-family: Palatino Linotype;
+        font-size: x-large;
+    }
+
+    #hompg:hover {
+        border-radius: 9px;
+        color: white;
+        padding: 9px;
+        background-color: #8e44ad;
+        border: 0.1px solid #8e44ad;
+        background-image: linear-gradient(violet, lightblue);
+    }
+
+    #hompg:active {
+        border-radius: 9px;
+        border: 0.1px solid gold;
+        background-color: gold;
+        color: black;
+    }
+
+  
+</style>

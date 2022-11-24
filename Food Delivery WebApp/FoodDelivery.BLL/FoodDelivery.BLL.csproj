@@ -47,15 +47,16 @@
     <Compile Include="Dto\OrderDto.cs" />
     <Compile Include="Dto\ProductDto.cs" />
     <Compile Include="Interfaces\IEmailEntity.cs" />
-    <Compile Include="Interfaces\IEmailSender.cs" />
+    <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IFoodDeliveryService.cs" />
     <Compile Include="Interfaces\IModel.cs" />
+    <Compile Include="Dto\EmailModel\EmailData.cs" />
+    <Compile Include="PartialModels\Email\Credentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\FoodDeliveryService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PartialModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FoodDelivery.DAL\FoodDelivery.DAL.csproj">
       <Project>{70121bb9-5daa-44fd-97bd-4cb2aefb1995}</Project>

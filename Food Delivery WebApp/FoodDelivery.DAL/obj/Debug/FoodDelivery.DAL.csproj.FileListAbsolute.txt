@@ -4,3 +4,15 @@ C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodD
 C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.csproj.CoreCompileInputs.cache
 C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.dll
 C:\Users\user\source\repos\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.pdb
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\bin\Debug\FoodDelivery.DAL.dll.config
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\bin\Debug\FoodDelivery.DAL.dll
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\bin\Debug\FoodDelivery.DAL.pdb
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\bin\Debug\EntityFramework.dll
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\bin\Debug\EntityFramework.xml
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.csproj.CopyComplete
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.dll
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.DAL\obj\Debug\FoodDelivery.DAL.pdb

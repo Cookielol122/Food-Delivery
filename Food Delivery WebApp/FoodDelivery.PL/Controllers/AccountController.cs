@@ -27,6 +27,7 @@ namespace FoodDelivery.PL.Controllers
         private ApplicationUserManager _userManager;
         #endregion
 
+        #region Constructors:
         public AccountController()
         {
         }
@@ -36,7 +37,9 @@ namespace FoodDelivery.PL.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
+        #endregion
 
+        #region SignIn & User Manager:
         public ApplicationSignInManager SignInManager
         {
             get
@@ -60,6 +63,7 @@ namespace FoodDelivery.PL.Controllers
                 _userManager = value;
             }
         }
+        #endregion
 
         #region Login:
         //
@@ -103,16 +107,12 @@ namespace FoodDelivery.PL.Controllers
         #endregion
 
         #region Register:
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -121,8 +121,7 @@ namespace FoodDelivery.PL.Controllers
             if (ModelState.IsValid)
             {
                 var curr = UserManager.Users.ToList();
-                int cntId = curr.Count;
-                var dReg = DateTime.Now;
+                int cntId = curr.Count;               
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -130,10 +129,10 @@ namespace FoodDelivery.PL.Controllers
                     Firs_Name = model.Firs_Name,
                     Last_Name = model.Last_Name,
                     Role = Role.RegisteredUser.ToString(),
-                    UserId = cntId++,
-                    DateOfRegister = dReg
-          
-            };
+                    UserId = ++cntId,
+                    DateOfRegister = DateTime.Now
+
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -194,8 +193,7 @@ namespace FoodDelivery.PL.Controllers
         }
         #endregion
 
-        //
-        // GET: /Account/ConfirmEmail
+        #region ConfirmEmail / Actions on Password: Forgot, Confirmation, Reset etc..
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -207,16 +205,13 @@ namespace FoodDelivery.PL.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
-        //
-        // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -243,24 +238,18 @@ namespace FoodDelivery.PL.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
         }
 
-        //
-        // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -292,9 +281,9 @@ namespace FoodDelivery.PL.Controllers
         {
             return View();
         }
+        #endregion
 
-        //
-        // POST: /Account/ExternalLogin
+        #region SendCode, SendTwoFactor, Login: External, Confirmation etc...
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -304,8 +293,6 @@ namespace FoodDelivery.PL.Controllers
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        //
-        // GET: /Account/SendCode
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
@@ -318,9 +305,6 @@ namespace FoodDelivery.PL.Controllers
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
-
-        //
-        // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -369,8 +353,6 @@ namespace FoodDelivery.PL.Controllers
             }
         }
 
-        //
-        // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -407,22 +389,20 @@ namespace FoodDelivery.PL.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
+        [AllowAnonymous]
+        public ActionResult ExternalLoginFailure()
+        {
+            return View();
+        }
+        #endregion
+
+        #region LogOFF / Dispose:
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
-        }
-
-        //
-        // GET: /Account/ExternalLoginFailure
-        [AllowAnonymous]
-        public ActionResult ExternalLoginFailure()
-        {
-            return View();
         }
 
         protected override void Dispose(bool disposing)
@@ -444,6 +424,7 @@ namespace FoodDelivery.PL.Controllers
 
             base.Dispose(disposing);
         }
+        #endregion
 
         #region Helpers
         // Used for XSRF protection when adding external logins

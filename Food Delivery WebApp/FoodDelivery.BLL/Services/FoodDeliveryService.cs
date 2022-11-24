@@ -1,11 +1,12 @@
 ﻿namespace FoodDelivery.BLL.Services
 {
     using DAL.UOF;
+    using System.Linq;
     using DAL.Entities;
     using DAL.Interfaces;
     using FoodDelivery.BLL.Dto;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     public class FoodDeliveryService : Interfaces.IFoodDeliveryService
     {
@@ -32,6 +33,7 @@
         {
             Category category = new Category
             {
+                Id = dto.Id,
                 Name = dto.Name,
                 Photo = dto.Photo,
                 TagName = dto.TagName
@@ -57,106 +59,303 @@
 
         public IEnumerable<CategoryDto> ReadCategories()
         {
-            throw new System.NotImplementedException();
+            var dto = new List<CategoryDto>();
+            var list = Db.Categories.GetAll().ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                dto[i] = new CategoryDto();
+                dto[i].Id = list[i].Id;
+                dto[i].Name = list[i].Name;
+                dto[i].TagName = list[i].TagName;
+                dto[i].Photo = list[i].Photo;
+            }
+            return dto;
         }
 
-        public IEnumerable<CategoryDto> ReadCategoriesAsync()
+        public async Task<IEnumerable<CategoryDto>> ReadCategoriesAsync()
         {
-            throw new System.NotImplementedException();
+            var dto = new List<CategoryDto>();
+            var list = await Db.Categories.GetAllAsync();
+            for (int i = 0; i < list.Count; i++)
+            {
+                dto[i] = new CategoryDto();
+                dto[i].Id = list[i].Id;
+                dto[i].Name = list[i].Name;
+                dto[i].TagName = list[i].TagName;
+                dto[i].Photo = list[i].Photo;
+            }
+            return dto;
         }
         #endregion
 
         #region Cart service:
         public void Insert(CartDto dto)
         {
-            throw new System.NotImplementedException();
+            var cart = new ShoppingCart
+            {
+                IsOrdered = dto.IsOrdered,
+                ItemsPrice = dto.ItemsPrice,
+                Price = dto.Price,
+                ProductName = dto.ProductName,
+                ProductPhoto = dto.ProductPhoto,
+                PutDate = dto.PutDate,
+                Quantity = dto.Quantity,
+                UserId = dto.UserId
+            };
+            Db.ShoppingCarts.Create(cart);
         }
 
         public void Update(CartDto dto)
         {
-            throw new System.NotImplementedException();
+            var cart = new ShoppingCart
+            {
+                Id = dto.Id,
+                IsOrdered = dto.IsOrdered,
+                ItemsPrice = dto.ItemsPrice,
+                Price = dto.Price,
+                ProductName = dto.ProductName,
+                ProductPhoto = dto.ProductPhoto,
+                PutDate = dto.PutDate,
+                Quantity = dto.Quantity,
+                UserId = dto.UserId
+            };
+            Db.ShoppingCarts.Update(cart);
         }
 
         public void Delete(CartDto dto)
         {
-            throw new System.NotImplementedException();
+            var cart = new ShoppingCart
+            {
+                Id = dto.Id,
+                IsOrdered = dto.IsOrdered,
+                ItemsPrice = dto.ItemsPrice,
+                Price = dto.Price,
+                ProductName = dto.ProductName,
+                ProductPhoto = dto.ProductPhoto,
+                PutDate = dto.PutDate,
+                Quantity = dto.Quantity,
+                UserId = dto.UserId
+            };
+            Db.ShoppingCarts.Delete(cart);
         }
 
-        public void DeleteCartAsync(int id)
+        public async Task DeleteCartAsync(int id)
         {
-            throw new System.NotImplementedException();
+            await Db.ShoppingCarts.DeleteAsync(id);
         }
 
         public IEnumerable<CartDto> ReadCart()
         {
-            throw new System.NotImplementedException();
+            var dto = new List<CartDto>();
+            var list = Db.ShoppingCarts.GetAll().ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                dto[i] = new CartDto();
+                dto[i].Id = list[i].Id;
+                dto[i].IsOrdered = list[i].IsOrdered;
+                dto[i].ItemsPrice = list[i].ItemsPrice;
+                dto[i].Price = list[i].Price;
+                dto[i].ProductName = list[i].ProductName;
+                dto[i].ProductPhoto = list[i].ProductPhoto;
+                dto[i].PutDate = list[i].PutDate;
+                dto[i].Quantity = list[i].Quantity;
+                dto[i].UserId = list[i].UserId;
+            }
+            return dto;
         }
 
-        public IEnumerable<CartDto> ReadCartAsync()
+        public async Task<IEnumerable<CartDto>> ReadCartAsync()
         {
-            throw new System.NotImplementedException();
+            var dto = new List<CartDto>();
+            var list = await Db.ShoppingCarts.GetAllAsync();
+            for (int i = 0; i < list.Count; i++)
+            {
+                dto[i] = new CartDto();
+                dto[i].Id = list[i].Id;
+                dto[i].IsOrdered = list[i].IsOrdered;
+                dto[i].ItemsPrice = list[i].ItemsPrice;
+                dto[i].Price = list[i].Price;
+                dto[i].ProductName = list[i].ProductName;
+                dto[i].ProductPhoto = list[i].ProductPhoto;
+                dto[i].PutDate = list[i].PutDate;
+                dto[i].Quantity = list[i].Quantity;
+                dto[i].UserId = list[i].UserId;
+            }
+            return dto;
         }
         #endregion
 
         #region Order service:
         public void Insert(OrderDto dto)
         {
-            throw new System.NotImplementedException();
+            var order = new Order
+            {
+                OrderDate = dto.OrderDate,
+                OrderProducts = dto.OrderProducts,
+                TotalAmount = dto.TotalAmount
+            };
+            Db.Orders.Create(order);
         }
 
         public void Update(OrderDto dto)
         {
-            throw new System.NotImplementedException();
+            var order = new Order
+            {
+                Id = dto.Id,
+                OrderDate = dto.OrderDate,
+                OrderProducts = dto.OrderProducts,
+                TotalAmount = dto.TotalAmount
+            };
+            Db.Orders.Update(order);
         }
 
         public void Delete(OrderDto dto)
         {
-            throw new System.NotImplementedException();
+            var order = new Order
+            {
+                Id = dto.Id,
+                OrderDate = dto.OrderDate,
+                OrderProducts = dto.OrderProducts,
+                TotalAmount = dto.TotalAmount
+            };
+            Db.Orders.Delete(order);
         }
 
-        public void DeleteOrderAsync(int id)
+        public async Task DeleteOrderAsync(int id)
         {
-            throw new System.NotImplementedException();
+            await Db.Orders.DeleteAsync(id);
         }
 
         public IEnumerable<OrderDto> ReadOrders()
         {
-            throw new System.NotImplementedException();
+            var dto = new List<OrderDto>();
+            var list = Db.Orders.GetAll().ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                dto[i] = new OrderDto();
+                dto[i].Id = list[i].Id;
+                dto[i].OrderDate = list[i].OrderDate;
+                dto[i].OrderProducts = list[i].OrderProducts;
+                dto[i].TotalAmount = list[i].TotalAmount;
+                dto[i].UserId = list[i].UserId;
+            }
+            return dto;
         }
 
-        public IEnumerable<OrderDto> ReadOrdersAsync()
+        public async Task<IEnumerable<OrderDto>> ReadOrdersAsync()
         {
-            throw new System.NotImplementedException();
+            var dto = new List<OrderDto>();
+            var list = await Db.Orders.GetAllAsync();
+            for (int i = 0; i < list.Count; i++)
+            {
+                dto[i] = new OrderDto();
+                dto[i].Id = list[i].Id;
+                dto[i].OrderDate = list[i].OrderDate;
+                dto[i].OrderProducts = list[i].OrderProducts;
+                dto[i].TotalAmount = list[i].TotalAmount;
+                dto[i].UserId = list[i].UserId;
+            }
+            return dto;
         }
         #endregion
 
         #region Product service:
         public void Insert(ProductDto dto)
         {
-            throw new System.NotImplementedException();
+            var product = new Product
+            {
+                CategoryId = dto.CategoryId,
+                Code = dto.Code,
+                DateAdded = dto.DateAdded,
+                Description = dto.Description,
+                IsPromotion = dto.IsPromotion,
+                isStock = dto.isStock,
+                Name = dto.Name,
+                Photo = dto.Photo,
+                Price = dto.Price
+            };
+            Db.Products.Create(product);
         }
 
         public void Update(ProductDto dto)
         {
-            throw new System.NotImplementedException();
+            var product = new Product
+            {
+                Id = dto.Id,
+                CategoryId = dto.CategoryId,
+                Code = dto.Code,
+                DateAdded = dto.DateAdded,
+                Description = dto.Description,
+                IsPromotion = dto.IsPromotion,
+                isStock = dto.isStock,
+                Name = dto.Name,
+                Photo = dto.Photo,
+                Price = dto.Price
+            };
+            Db.Products.Update(product);
         }
         public void Delete(ProductDto dto)
         {
-            throw new System.NotImplementedException();
+            var product = new Product
+            {
+                Id = dto.Id,
+                CategoryId = dto.CategoryId,
+                Code = dto.Code,
+                DateAdded = dto.DateAdded,
+                Description = dto.Description,
+                IsPromotion = dto.IsPromotion,
+                isStock = dto.isStock,
+                Name = dto.Name,
+                Photo = dto.Photo,
+                Price = dto.Price
+            };
+            Db.Products.Delete(product);
         }
-        public void DeleteProductAsync(int id)
+        public async Task DeleteProductAsync(int id)
         {
-            throw new System.NotImplementedException();
+            await Db.Products.DeleteAsync(id);
         }
 
         public IEnumerable<ProductDto> ReadProducts()
         {
-            throw new System.NotImplementedException();
+            var dto = new List<ProductDto>();
+            var list = Db.Products.GetAll().ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                dto[i] = new ProductDto();
+                dto[i].Id = list[i].Id;
+                dto[i].Description = list[i].Description;
+                dto[i].CategoryId = list[i].CategoryId;
+                dto[i].Code = list[i].Code;
+                dto[i].DateAdded = list[i].DateAdded;
+                dto[i].IsPromotion = list[i].IsPromotion;
+                dto[i].isStock = list[i].isStock;
+                dto[i].Name = list[i].Name;
+                dto[i].Photo = list[i].Photo;
+                dto[i].Price = list[i].Price;
+            }
+            return dto;
         }
 
-        public IEnumerable<ProductDto> ReadProductsAsync()
+        public async Task<IEnumerable<ProductDto>> ReadProductsAsync()
         {
-            throw new System.NotImplementedException();
+            var dto = new List<ProductDto>();
+            var list = await Db.Products.GetAllAsync();
+            for (int i = 0; i < list.Count; i++)
+            {
+                dto[i] = new ProductDto();
+                dto[i].Id = list[i].Id;
+                dto[i].Description = list[i].Description;
+                dto[i].CategoryId = list[i].CategoryId;
+                dto[i].Code = list[i].Code;
+                dto[i].DateAdded = list[i].DateAdded;
+                dto[i].IsPromotion = list[i].IsPromotion;
+                dto[i].isStock = list[i].isStock;
+                dto[i].Name = list[i].Name;
+                dto[i].Photo = list[i].Photo;
+                dto[i].Price = list[i].Price;
+            }
+            return dto;
         }
         #endregion
     }
