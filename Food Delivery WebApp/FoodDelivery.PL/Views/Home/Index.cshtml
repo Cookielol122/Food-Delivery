@@ -1,17 +1,32 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Food Delivery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<br />
-<br />
-<br />
-
-<div class="row"  style="border: 1px solid red; padding:9px"> 
-    <div class="col-md-3" style="border: 1px solid blue">
-        Left Side
-    </div>
-    <div class="col-md-9" style="border: 1px solid green">
-        Right Side
-    </div>
+<div class="row" style="" >
+    @*<div class="col" hidden>
+        dsfsdfsdfsfdsfssdfsdfsdfsdfsfssdfsdfsdfsdfsfdsdfsdfsdfsdfsdfs
+        dsfsdfsdfsfdsfssdfsdfsdfsdfsfssdfsdfsdfsdfsfdsdfsdfsdfsdfsdfs
+        dsfsdfsdfsfdsfssdfsdfsdfsdfsfssdfsdfsdfsdfsfdsdfsdfsdfsdfsdfs
+        dsfsdfsdfsfdsfssdfsdfsdfsdfsfssdfsdfsdfsdfsfdsdfsdfsdfsdfsdfs
+    </div>*@
+    <img src="~/Photos/logo.png" width="" height="500" alt="FOODSpace" />
 </div>
 
+<div id="btnM">
+    @Html.ActionLink("МЕНЮ", "MainPage" , "Home", null, new { @class = "btn btn-primary", id = "#menuBtn" })
+</div>
+
+
+
+
+<style>
+    #menuBtn{
+        font-size:x-large;
+    }
+    #btnM {
+        text-align: center;
+    }
+
+</style>

@@ -1,29 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace FoodDelivery.PL.Controllers
+﻿namespace FoodDelivery.PL.Controllers
 {
+    using Models;
+    using System.Linq;
+    using BLL.Services;
+    using System.Web.Mvc;
+    using System.Threading.Tasks;
+
     public class HomeController : Controller
     {
+        private readonly FoodDeliveryService fd;
+
+        public HomeController()
+        {
+            fd = new FoodDeliveryService(Init.Connection);
+        }
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public async Task<ActionResult> MainPage()
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.Categories = await fd.ReadCategoriesAsync();
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult MainPage(object o)
         {
-            ViewBag.Message = "Your contact page.";
-
+            var button =
+               Request.Params.Cast<string>().Where(p => p.StartsWith("btn")).Select(p => p.Substring("btn".Length)).First().Remove(0, 1);
             return View();
         }
     }

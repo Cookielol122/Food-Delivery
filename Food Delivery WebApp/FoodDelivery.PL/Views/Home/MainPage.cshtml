@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Food Delivery";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<br />
+<br />
+<br />
+
+<div class="row" style="border: 1px solid red; padding:9px">
+
+    <!-- List of Categories: -->
+    @using (Html.BeginForm("MainPage", "Home", FormMethod.Post))
+    {
+        <div class="col-sm-2" style="">
+            @*background-image: linear-gradient(blue, darkblue,blue) "*@
+            @*<div class="col">
+                    <button type="button" class="categToggle"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#categoryColase">
+                        Звернути/Розвернути список категорій
+                    </button>
+                </div>*@
+            <div id="" style="text-align:center">
+                <div class="d-flex" style="width: 100%" id="wrapper">
+                    <div style="width: 100%" class="list-group list-group-item-heading">
+                        @Html.ActionLink("Усі категорії", "", "", new { param = "AllCategoryPart" }, new { id = "btnCateg", style = "background-color:black;color:red", @class = "btn btn-default" })
+                        @foreach (var item in ViewBag.Categories)
+                        {
+                            <button id="btnCateg" class="btn btn-default" name="btn-@item.TagName">
+                                @item.Name
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <div class="col-md-10" style="border: 1px solid green">
+        Right Side
+    </div>
+</div>
+
+
+
+
+<style>
+    #btnCateg {
+        background-color: whitesmoke;
+        margin-top: 2px;
+    }
+
+        #btnCateg:hover {
+            background-color:silver;
+            color:white
+        }
+
+        #btnCateg:active {
+        }
+</style>

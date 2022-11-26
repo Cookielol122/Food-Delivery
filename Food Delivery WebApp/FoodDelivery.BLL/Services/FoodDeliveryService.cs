@@ -63,7 +63,7 @@
             var list = Db.Categories.GetAll().ToList();
             for (int i = 0; i < list.Count; i++)
             {
-                dto[i] = new CategoryDto();
+                dto.Add(new CategoryDto());
                 dto[i].Id = list[i].Id;
                 dto[i].Name = list[i].Name;
                 dto[i].TagName = list[i].TagName;
@@ -78,7 +78,7 @@
             var list = await Db.Categories.GetAllAsync();
             for (int i = 0; i < list.Count; i++)
             {
-                dto[i] = new CategoryDto();
+                dto.Add(new CategoryDto());
                 dto[i].Id = list[i].Id;
                 dto[i].Name = list[i].Name;
                 dto[i].TagName = list[i].TagName;
@@ -150,7 +150,7 @@
             var list = Db.ShoppingCarts.GetAll().ToList();
             for (int i = 0; i < list.Count; i++)
             {
-                dto[i] = new CartDto();
+                dto.Add(new CartDto());
                 dto[i].Id = list[i].Id;
                 dto[i].IsOrdered = list[i].IsOrdered;
                 dto[i].ItemsPrice = list[i].ItemsPrice;
@@ -170,7 +170,7 @@
             var list = await Db.ShoppingCarts.GetAllAsync();
             for (int i = 0; i < list.Count; i++)
             {
-                dto[i] = new CartDto();
+                dto.Add(new CartDto());
                 dto[i].Id = list[i].Id;
                 dto[i].IsOrdered = list[i].IsOrdered;
                 dto[i].ItemsPrice = list[i].ItemsPrice;
@@ -232,7 +232,7 @@
             var list = Db.Orders.GetAll().ToList();
             for (int i = 0; i < list.Count; i++)
             {
-                dto[i] = new OrderDto();
+                dto.Add(new OrderDto());
                 dto[i].Id = list[i].Id;
                 dto[i].OrderDate = list[i].OrderDate;
                 dto[i].OrderProducts = list[i].OrderProducts;
@@ -248,7 +248,7 @@
             var list = await Db.Orders.GetAllAsync();
             for (int i = 0; i < list.Count; i++)
             {
-                dto[i] = new OrderDto();
+                dto.Add(new OrderDto());
                 dto[i].Id = list[i].Id;
                 dto[i].OrderDate = list[i].OrderDate;
                 dto[i].OrderProducts = list[i].OrderProducts;
@@ -322,7 +322,7 @@
             var list = Db.Products.GetAll().ToList();
             for (int i = 0; i < list.Count; i++)
             {
-                dto[i] = new ProductDto();
+                dto.Add(new ProductDto());
                 dto[i].Id = list[i].Id;
                 dto[i].Description = list[i].Description;
                 dto[i].CategoryId = list[i].CategoryId;
@@ -343,7 +343,7 @@
             var list = await Db.Products.GetAllAsync();
             for (int i = 0; i < list.Count; i++)
             {
-                dto[i] = new ProductDto();
+                dto.Add(new ProductDto());
                 dto[i].Id = list[i].Id;
                 dto[i].Description = list[i].Description;
                 dto[i].CategoryId = list[i].CategoryId;

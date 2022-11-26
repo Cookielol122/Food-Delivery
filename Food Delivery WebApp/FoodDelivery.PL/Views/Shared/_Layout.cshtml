@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - FoodSpace</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
-    <div class="col-md-pull-2" @*style="background-image: linear-gradient(transparent, yellow, red, transparent)"*@>
+<body id="bdy">
+    <div style="position:absolute" class="col-md-pull-2" @*style="background-image: linear-gradient(transparent, yellow, red, transparent)"*@>
         <header>
             <nav id="nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-inverse-info"
                  style="background-image: linear-gradient( blue, blue); border: 2px solid blue; border-radius: 0px; padding: 9px ">
@@ -30,6 +30,7 @@
                         <div class="navbar-nav ms-auto">
                             @Html.Partial("_LoginPartial")
                         </div>
+
                     </div>
                 </div>
             </nav>
@@ -40,7 +41,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Food Delivery</p>
+            <p style="text-align:center;font-weight:bold">&copy; @DateTime.Now.Year - Food Delivery</p>
         </footer>
     </div>
 
@@ -52,6 +53,10 @@
 
 
 <style>
+    #bdy {
+        background: url(../../Photos/background.png) center fixed;
+        background-size: cover
+    }
     #btn {
         font-size:large;
         margin-right:10px;
