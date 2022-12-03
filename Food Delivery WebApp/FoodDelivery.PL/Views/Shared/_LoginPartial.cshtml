@@ -7,9 +7,11 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Привіт  " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: 
+           new { title = "Manage", style = "color:gold;margin-right:40px;font-size:middle;text-decoration:none" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a style="border:1px solid white;color:white;text-decoration:none;padding:12px;border-radius:6px;margin-right:32px" 
+               href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }
 }

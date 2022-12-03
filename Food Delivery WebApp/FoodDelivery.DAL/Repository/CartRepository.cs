@@ -20,7 +20,7 @@
         public void Create(ShoppingCart entity)
         {
             db.ShoppingCarts.Add(entity);
-            db.SaveChanges();
+            int r = db.SaveChanges();
         }
 
         public void Delete(ShoppingCart entity)

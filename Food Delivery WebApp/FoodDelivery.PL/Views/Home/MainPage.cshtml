@@ -1,4 +1,7 @@
-﻿@{
+﻿@model PagedList.IPagedList<FoodDelivery.BLL.Dto.ProductDto>
+@using PagedList.Mvc;
+
+@{
     ViewBag.Title = "Food Delivery";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
@@ -7,11 +10,12 @@
 <br />
 <br />
 
-<div class="row" style="border: 1px solid red; padding:9px">
+@using (Html.BeginForm("MainPage", "Home", FormMethod.Post))
+{
+    <div class="row" style="padding:9px">
 
-    <!-- List of Categories: -->
-    @using (Html.BeginForm("MainPage", "Home", FormMethod.Post))
-    {
+        <!-- List of Categories: -->
+
         <div class="col-sm-2" style="">
             @*background-image: linear-gradient(blue, darkblue,blue) "*@
             @*<div class="col">
@@ -35,15 +39,70 @@
                 </div>
             </div>
         </div>
-    }
 
 
-    <div class="col-md-10" style="border: 1px solid green">
-        Right Side
+        <div class="col-md-10" style="">
+            @if (ViewBag.CategoryPressed == true)
+            {
+                <div class="col" style="background-image: src(../../Logo/paper.gif)">
+                    <div class="row" style="">
+                        <div style="background-color:whitesmoke;padding:9px;color:mediumvioletred;font-weight:bold">
+                            <span style="font-family:'Palatino Linotype';font-size:large">
+                                Категорія /
+                                <span style="color: darkorange; font-family: 'Palatino Linotype'; font-size: large;color:red"> @ViewBag.CategoryName  </span>
+                            </span>
+                        </div>
+                        @foreach (var product in Model)
+                        {
+                            string Path = "~/Photos/Products/" + product.Photo;
+                            <div class="col-md-3" style="margin-top:20px">
+                                <div class="card p-2 col" style="text-align:center">
+                                    <div id="phto" style="height:300px;width:100%">
+                                        <img src="@Url.Content(Path)"
+                                             style="text-align:center;background-size:cover"
+                                             width="100%" height="100%" alt="Image is Not Opened" />
+                                    </div>
+                                    <div class="product-details" style="min-height:auto">
+                                        <span style="color:mediumblue;font-family:'Palatino Linotype';font-weight:bold" class="font-weight-bold d-block">@product.Price.ToString("N2") грн</span>
+                                        <div style="word-break: break-all;min-height:80px">@product.Name</div>
+                                        <div><small style="color:firebrick">Serial:&nbsp;@product.Code</small></div>
+                                        <div class="buttons d-flex flex-row">
+                                            <div style="width:20%" class="cart"><i class="fa fa-shopping-cart"></i></div>
+                                            <div style="">
+                                                @if (product.isStock == true)
+                                                {
+                                                <button style="width:100%" name="btn-@product.Code" class="btn btn-success cart-button btn-block">
+                                                    <span class="dot">1</span>В корзину
+                                                </button>
+                                                }
+                                                else
+                                                { 
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="weight">
+                                            @if (product.isStock == true)
+                                            {
+                                                <small style="color:green;font-weight:bold">В наявності</small>
+                                            }
+                                            else
+                                            {
+                                                <small style="color: red; font-weight: bold">Не в наявності</small>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) from @Model.PageCount*@
+                        @Html.PagedListPager(Model, page => Url.Action("MainPage", new { page }))
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-</div>
 
-
+}
 
 
 <style>
@@ -53,10 +112,183 @@
     }
 
         #btnCateg:hover {
-            background-color:silver;
-            color:white
+            background-color: silver;
+            color: white
         }
 
         #btnCateg:active {
         }
+</style>
+
+
+
+
+
+
+
+
+<style>
+    /* List of Products */
+@@import url('prodList.css');
+
+@@media only screen and (max-width: 600px) {
+    #phto {
+        height:750px;
+    }
+}
+
+.wrapper {
+    margin-top: 30px;
+}
+
+.card {
+    border: 1px solid #eee;
+    cursor: pointer;
+}
+
+
+.weight {
+    /*margin-top: -65px;*/
+    transition: all 0.5s;
+}
+
+    .weight small {
+        color: #e2dede;
+    }
+
+.buttons {
+    padding: 10px;
+    background-color: #d6d4d44f;
+    border-radius: 4px;
+    position: relative;
+    margin-top: 7px;
+    opacity: 0;
+    transition: all 0.8s;
+}
+
+.dot {
+    height: 14px;
+    width: 14px;
+    background-color: green;
+    border-radius: 50%;
+    position: absolute;
+    left: 27%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8px;
+    color: #fff;
+    opacity: 0;
+}
+
+.cart-button {
+    height: 48px
+}
+
+    .cart-button:focus {
+        box-shadow: none
+    }
+
+.cart {
+    position: relative;
+    height: 48px !important;
+    width: 20px;
+    margin-right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 11px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: 1s ease-in-out;
+    overflow: hidden;
+}
+
+.cart-button.clicked span.dot {
+    animation: item 0.3s ease-in forwards
+}
+
+@@keyframes item {
+    0% {
+        opacity: 1;
+        top: 30%;
+        left: 30%
+    }
+
+    25% {
+        opacity: 1;
+        left: 26%;
+        top: 0%
+    }
+
+    50% {
+        opacity: 1;
+        left: 23%;
+        top: -22%
+    }
+
+    75% {
+        opacity: 1;
+        left: 19%;
+        top: -18%
+    }
+
+    100% {
+        opacity: 1;
+        left: 14%;
+        top: 28%
+    }
+}
+
+
+
+.card:hover .buttons {
+    opacity: 1;
+}
+
+
+.card:hover .weight {
+    margin-top: 10px;
+}
+
+.card:hover {
+    transform: scale(1.04);
+    z-index: 2;
+    overflow: hidden;
+}
+
+
+
+
+/* other */
+.item {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    max-height: 600px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+}
+
+.price {
+    color: grey;
+    font-size: 22px;
+}
+
+.item button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+    .item button:hover {
+        opacity: 0.7;
+    }
 </style>

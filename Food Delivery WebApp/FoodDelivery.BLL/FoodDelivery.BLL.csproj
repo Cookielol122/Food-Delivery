@@ -44,6 +44,7 @@
     <Compile Include="Dto\CartDto.cs" />
     <Compile Include="Dto\CategoryDto.cs" />
     <Compile Include="Dto\EmailModel\MessageType.cs" />
+    <Compile Include="Dto\MessageDto.cs" />
     <Compile Include="Dto\OrderDto.cs" />
     <Compile Include="Dto\ProductDto.cs" />
     <Compile Include="Interfaces\IEmailEntity.cs" />

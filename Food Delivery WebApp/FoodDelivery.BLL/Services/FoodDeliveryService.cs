@@ -1,5 +1,6 @@
 ﻿namespace FoodDelivery.BLL.Services
 {
+    using System;
     using DAL.UOF;
     using System.Linq;
     using DAL.Entities;
@@ -7,13 +8,16 @@
     using FoodDelivery.BLL.Dto;
     using System.Threading.Tasks;
     using System.Collections.Generic;
+    using System.Data.SqlClient;
 
     public class FoodDeliveryService : Interfaces.IFoodDeliveryService
     {
         private readonly IUnitOfWork Db;
+        private readonly string connectStrCpy;
 
         public FoodDeliveryService(string connectStr)
         {
+            connectStrCpy = connectStr;
             Db = new UnitOfWork(connectStr);
         }
 
@@ -182,6 +186,47 @@
                 dto[i].UserId = list[i].UserId;
             }
             return dto;
+        }
+
+        public string UpdateADO(CartDto cart, bool isOrdered = true)
+        {
+            if (isOrdered)
+            {
+                string qwery = $"update ShopingCarts set IsOrdered=@IsOrdered where Id={cart.Id}";
+                using (var conn = new SqlConnection(connectStrCpy))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(qwery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IsOrdered", cart.IsOrdered);
+                        try
+                        {
+                            var res = cmd.ExecuteNonQuery();
+                            return res == 1 ? "Update Success!" : "Something went wrong...";
+                        }
+                        catch (Exception ex) { return ex.Message; }
+                    }
+                }
+            }
+            else
+            {
+                string qwery = $"update ShopingCarts set ItemsPrice=@ItemsPrice, Quantity=@Quantity where Id={cart.Id}";
+                using (var conn = new SqlConnection(connectStrCpy))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(qwery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ItemsPrice", cart.ItemsPrice);
+                        cmd.Parameters.AddWithValue("@Quantity", cart.Quantity);
+                        try
+                        {
+                            var res = cmd.ExecuteNonQuery();
+                            return res == 1 ? "Update Success!" : "Something went wrong...";
+                        }
+                        catch (Exception ex) { return ex.Message; }
+                    }
+                }
+            }
         }
         #endregion
 
