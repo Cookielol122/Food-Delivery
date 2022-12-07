@@ -1,0 +1,30 @@
+﻿
+<div class="w3-modal-content w3-animate-zoom w3-card-4">
+
+    <header class="w3-container " style="background-color: blue;color:gold">
+        <span onclick="document.getElementById('id01').style.display='none'"
+              class="w3-button w3-display-topright">&times;</span>
+        <h2 style="text-align:center;font-family:'Palatino Linotype'">Напишіть нам</h2>
+    </header>
+
+    <div class="w3-container">
+        <form action="~/Home/SendMessage" method="post" style="padding:50px">
+            <input name="userName" style="margin-bottom:5px" type="text" class="form-control" placeholder="Ім'я':" required />
+            <input name="email" style="margin-bottom:5px" type="email" class="form-control" placeholder="E-mail:" required />
+            <input name="phone" style="margin-bottom:5px" type="tel" class="form-control" placeholder="Телефон:" required />
+            <input name="message" style="margin-bottom:5px" type="tel" class="form-control" hidden value="WriteUs" />
+            <div class="form-outline">
+                <textarea name="comment" placeholder="Текст" class="form-control" rows="4" required></textarea>
+            </div>
+            <br />
+            <div style="width:90px;margin:auto">
+                <input class="btn btn-primary" type="submit" value="Надіслати" />
+            </div>
+        </form>
+    </div>
+
+    <footer style="text-align: center; background-color: blue; color: gold" class="w3-container ">
+        <h5 style="font-family:'Palatino Linotype';font-weight:bold">Food Space / Fast Delivery</h5>
+    </footer>
+
+</div>

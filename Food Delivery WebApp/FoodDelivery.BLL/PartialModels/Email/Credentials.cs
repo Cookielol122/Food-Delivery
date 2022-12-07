@@ -2,7 +2,7 @@
 {
     public class Credentials
     {
-        public readonly static string Mail = "test1001@gmail.com";
-        public readonly static string Pass = "123456789";
+        public readonly static string Mail = "foodspacetm@gmail.com";
+        public readonly static string Pass = "nsrzbyjrzenfcnzc";
     }
 }

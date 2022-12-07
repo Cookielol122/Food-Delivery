@@ -192,7 +192,7 @@
         {
             if (isOrdered)
             {
-                string qwery = $"update ShopingCarts set IsOrdered=@IsOrdered where Id={cart.Id}";
+                string qwery = $"update ShoppingCarts set IsOrdered=@IsOrdered where Id={cart.Id}";
                 using (var conn = new SqlConnection(connectStrCpy))
                 {
                     conn.Open();
@@ -210,7 +210,7 @@
             }
             else
             {
-                string qwery = $"update ShopingCarts set ItemsPrice=@ItemsPrice, Quantity=@Quantity where Id={cart.Id}";
+                string qwery = $"update ShoppingCarts set ItemsPrice=@ItemsPrice, Quantity=@Quantity where Id={cart.Id}";
                 using (var conn = new SqlConnection(connectStrCpy))
                 {
                     conn.Open();
@@ -401,6 +401,26 @@
                 dto[i].Price = list[i].Price;
             }
             return dto;
+        }
+        #endregion
+
+        #region Message service:
+        public async Task Insert(MessageDto dto)
+        {
+            await Task.Run(() =>
+            {
+                var message = new Message
+                {
+                    DateMessage = dto.DateMessage,
+                    IsReviewed = dto.IsReviewed,
+                    RecipientId = dto.RecipientId,
+                    SenderId = dto.SenderId,
+                    TextMessage = dto.TextMessage,
+                    Title = dto.Title,
+                    TypeMessage = dto.TypeMessage
+                };
+                Db.Messages.Create(message);
+            });
         }
         #endregion
     }

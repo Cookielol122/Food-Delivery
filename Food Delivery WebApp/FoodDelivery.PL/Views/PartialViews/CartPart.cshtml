@@ -1,0 +1,244 @@
+﻿
+@{
+    List<FoodDelivery.BLL.Dto.CartDto> list = ViewBag.Cart;
+}
+
+<div style="opacity:0.97;display:block;overflow:auto;margin-top:10px" id="cart" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom w3-card-4">
+        <header class="w3-container w3-teal">
+            <span onclick="document.getElementById('cart').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
+            <h2 style="text-align:center;font-family:'Palatino Linotype'">*** Твоя корзина товарів ***</h2>
+        </header>
+        <div class="w3-container">
+            @if (ViewBag.IsEmptyCart == true || ViewBag.Cart.Count == 0)
+            {
+                <h3 style="color:red;font-family:'Palatino Linotype';text-align:center;padding:75px">
+                    Корзина пуста... Спробуй добавити якісь товари!
+                </h3>
+            }
+            else
+            {
+                @*<form action="~/Home/CartUpdate" method="post" style="padding-top: 2px; padding-bottom: 2px ">*@
+                <div class="modal-content">
+                    <div class="modal-body" style="overflow:auto">
+                        <table class="table table-light table-hover" style="overflow:auto">
+                            <thead>
+                                <tr style="text-align:center">
+                                    <th scope="col">Фото</th>
+                                    <th scope="col">Назва продукту</th>
+                                    <th scope="col">Ціна</th>
+                                    <th scope="col">К-сть</th>
+                                    <th scope="col">Загальна ціна</th>
+                                    <th scope="col">Дія</th>
+                                </tr>
+                            </thead>
+                            @{
+                                for (var i = 0; i < list.Count; i++)
+                                {
+                                    var photo = "~/Photos/Products/" + list[i].ProductPhoto;
+                                    <tbody>
+                                        <tr style="text-align:center">
+                                            <td scope="row">
+                                                <img width="40" height="40"
+                                                     src="@Url.Content(photo)"
+                                                     onclick="document.getElementById('photo').style.display='block'"
+                                                     class="" alt="No Photo" />
+                                            </td>
+
+                                            <td scope="row"><span name="prName">@list[i].ProductName</span></td>
+                                            <td scope="row"><span name="prc">@list[i].Price.ToString("N2")</span>грн </td>
+                                            <td class="qty">
+                                                <input onchange="QtyChange()" class="remark" type="number" id="product-quantity" name="product-quantity" min="1" max="999" value="@list[i].Quantity" />
+                                            </td>
+                                            <td scope="row"><span name="total">@list[i].ItemsPrice.ToString("N2")</span> грн</td>
+                                            <td>
+                                                @Html.ActionLink("X", "DeleteItem", "Home", new { cartSelected = list[i].Id }, new { @class = "btn btn-danger btn - sm" })
+                                            </td>
+                                            <td scope="row"><input class="itemId" name="prName" value="@list[i].Id" hidden></td>
+                                        </tr>
+                                    </tbody>
+                                }
+                            }
+                        </table>
+                        <div class="d-flex justify-content-end">
+                            <h4 style="font-weight:bold;font-family:'Palatino Linotype'">
+                                Total: <span class="price text-success">
+                                    @FoodDelivery.PL.Controllers.HomeController.TotalSum.ToString("N2") ГРН.
+                                </span>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="document.getElementById('cart').style.display='none'">
+                            Закрити
+                        </button>
+
+                        @if (!FoodDelivery.PL.Controllers.HomeController.isChangeQty)
+                        {
+                            <button onclick="insert()" class="btn btn-success">
+                                Confirm
+                            </button>
+                        }
+                        else
+                        {
+                            <span class="btn btn-primary"
+                                  onclick="document.getElementById('id02').style.display='block'">
+                                Checkout
+                            </span>
+                        }
+                    </div>
+                </div>
+                @*</form>*@
+            }
+        </div>
+        <script type="text/javascript">
+            function QtyChange() {
+                var remarks = [];
+                //location.reload();
+                jQuery(".remark").each(function () {
+                    remarks.push(jQuery(this).val());
+                });
+                jQuery(".itemId").each(function () {
+                    remarks.push(jQuery(this).val());
+                });
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("QtyChange", "Home", new { isQtyPress = true})",
+                        data: JSON.stringify({ carts: remarks }),
+                        contentType: "application/json; charset=utf-8;",
+                        success:
+                            function (response) {
+                                if (!response.success) {
+                                    location.reload();
+                                }
+                            }
+                    });
+            }
+        </script>
+
+        <script>
+                function insert() {
+                    var remarks = [];
+                    //location.reload();
+                    jQuery(".remark").each(function () {
+                        remarks.push(jQuery(this).val());
+                    });
+                    jQuery(".itemId").each(function () {
+                        remarks.push(jQuery(this).val());
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("CartUpdate", "Home")",
+                        data: JSON.stringify({ carts: remarks }),
+                        contentType: "application/json; charset=utf-8;",
+                        success:
+                            function (response) {
+                                if (!response.success) {
+                                    location.reload();
+                                }
+                            }
+                    });
+            }
+
+            @*function qtyChange() {
+                $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("QtyChange", "Home")",
+                        data:'',
+                        contentType: "application/json; charset=utf-8;"
+                    });
+            }*@
+
+
+        </script>
+        <footer style="text-align:center" class="w3-container w3-teal">
+            <h5 style="font-family:'Palatino Linotype';font-weight:bold">Food Space / Fast Delivery</h5>
+        </footer>
+    </div>
+</div>
+
+
+<!-- Info 'bout the client: -->
+<div class="w3-container" style="margin-top: 150px">
+    <div style="opacity:0.97;" id="id02" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4">
+            <header class="w3-container w3-teal">
+                <span onclick="document.getElementById('id02').style.display='none'"
+                      class="w3-button w3-display-topright">&times;</span>
+                <h2 style="text-align:center;font-family:'Palatino Linotype'"> Заповніть свої данні </h2>
+            </header>
+            <div class="w3-container">
+                <form action="~/Home/SendMessage" method="post" style="padding:50px">
+                    <input name="message" style="margin-bottom:5px" type="text" value="MakeOrder" class="form-control" hidden />
+                    <input name="userName" style="margin-bottom:5px" type="text" class="form-control" placeholder="Your Name And Surname:" required />
+                    <input name="email" style="margin-bottom:5px" type="email" class="form-control" placeholder="Your Email:" required />
+                    <input name="phone" style="margin-bottom:5px" type="tel" class="form-control" placeholder="Your Phone:" required />
+                    <input name="comment" style="margin-bottom:5px" type="text" class="form-control" placeholder="Delivery Address:" required />
+                    <input name="message" style="margin-bottom:5px" type="tel" class="form-control" hidden value="New Order" />
+                    <br />
+                    <div style="width:90px;margin:auto">
+                        <input class="btn btn-primary" type="submit" value="Make Order" />
+                    </div>
+                </form>
+            </div>
+            <footer style="text-align:center" class="w3-container w3-teal">
+                <h5 style="font-family:'Palatino Linotype';font-weight:bold">Food Space / Fast Delivery</h5>
+            </footer>
+        </div>
+    </div>
+
+
+    <script>
+        var isOrder = doc.getElementById("message");
+        var phone = document.getElementById("phone");
+        var userName = document.getElementById("userName");
+        var email = document.getElementById("email");
+        var comment = document.getElementById("comment");
+
+        var mailInfo = { isOrder: message, mail: email, name: userName, phn: phone, commt: comment };
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/Home/SendMessage',
+            data: mailInfo,
+            success: function (result) {
+                alert(result);
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+    </script>
+
+    <!-- For Quantity: -->
+    <script>
+        $(function () {
+            $('#quantity').on('keyup', function () {
+                // if input value is changed, run the ajax call here
+                var qty = doc.getElementById("quantity").value;
+                var price = document.getElementById("prc").value;
+                var total = document.getElementById("total").value;
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '/Home/SendMessage',
+                    data: mailInfo,
+                    success: function (result) {
+                        alert(result);
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                })
+            })
+        })
+    </script>
+</div>
+
+
+
+
+

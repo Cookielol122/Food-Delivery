@@ -233,6 +233,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Photos\background.png" />
+    <Content Include="Photos\Categories\Breakfast.png" />
+    <Content Include="Photos\Categories\dinner.png" />
     <Content Include="Photos\logo.png" />
     <Content Include="Photos\Logo\cart.png" />
     <Content Include="Photos\Products\redvine.png" />
@@ -316,6 +318,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\PartialViews\ContactPart.cshtml" />
+    <Content Include="Views\PartialViews\DeliveryPart.cshtml" />
+    <Content Include="Views\PartialViews\MessagePart.cshtml" />
+    <Content Include="Views\PartialViews\PaymentPart.cshtml" />
+    <Content Include="Views\PartialViews\CartPart.cshtml" />
+    <Content Include="Views\PartialViews\AllCategoryPart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202211191032206_InitialCreate.resx">
@@ -337,8 +345,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Photos\Categories\" />
-    <Folder Include="Views\PartialViews\" />
+    <Folder Include="OrdersFiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

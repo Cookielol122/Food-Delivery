@@ -8,5 +8,6 @@
         IRepository<Order> Orders { get; }
         IRepository<ShoppingCart> ShoppingCarts { get; }
         IRepository<Category> Categories { get; }
+        IRepository<Message> Messages { get; }
     }
 }

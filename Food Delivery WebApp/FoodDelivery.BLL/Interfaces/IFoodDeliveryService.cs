@@ -41,5 +41,9 @@
         IEnumerable<ProductDto> ReadProducts();
         Task<IEnumerable<ProductDto>> ReadProductsAsync();
         #endregion
+
+        #region Message:
+        Task Insert(MessageDto dto);
+        #endregion
     }
 }

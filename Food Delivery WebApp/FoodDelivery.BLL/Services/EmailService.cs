@@ -24,7 +24,7 @@
             {
                 // [0] - returnMsg, [1] - subject, [2] - body
                 var param = htmlBody == null ? GetConcreteMsg(msgType).ToList() : GetConcreteMsg(msgType, htmlBody).ToList();
-                var recepient = ownerRecepient != null ? ownerRecepient : "myemail@gmail.com";
+                var recepient = ownerRecepient != null ? ownerRecepient : "chervak.tetiana@comp-sc.if.ua";
                 MailAddress from = new MailAddress(data.Email, data.UserName);
                 MailAddress to = new MailAddress(recepient); // email to admin
                 MailMessage m = new MailMessage(from, to);

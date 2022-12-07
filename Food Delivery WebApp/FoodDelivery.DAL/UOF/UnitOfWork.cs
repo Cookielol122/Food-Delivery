@@ -12,6 +12,7 @@
         private OrderRepository orderRepo;
         private CartRepository cartRepo;
         private CategoryRepository categoryRepo;
+        private MessageRepository messageRepo;
 
         public UnitOfWork(string conn)
         {
@@ -55,6 +56,16 @@
                 if (categoryRepo == null)
                     categoryRepo = new CategoryRepository(Db);
                 return categoryRepo;
+            }
+        }
+
+        public IRepository<Message> Messages
+        {
+            get
+            {
+                if (messageRepo == null)
+                    messageRepo = new MessageRepository(Db);
+                return messageRepo;
             }
         }
 

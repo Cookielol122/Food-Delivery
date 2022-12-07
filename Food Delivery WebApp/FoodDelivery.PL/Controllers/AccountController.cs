@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -16,7 +14,8 @@ namespace FoodDelivery.PL.Controllers
     {
         Guest,
         RegisteredUser,
-        Admin
+        Admin,
+        Corier
     };
 
     [Authorize]
