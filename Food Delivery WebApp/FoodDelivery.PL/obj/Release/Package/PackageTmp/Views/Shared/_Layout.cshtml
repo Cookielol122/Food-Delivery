@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - FoodSpace</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body id="bdy">
+    <div style="position:absolute" class="col-md-pull-2" @*style="background-image: linear-gradient(transparent, yellow, red, transparent)"*@>
+        <header>
+
+            @if (FoodDelivery.PL.Controllers.HomeController.IsOrder == true)
+            {
+                <div style="position:absolute">
+                    <div id="cartFixed" style="cursor: move; background-color: transparent; border: 0px solid transparent" class="">
+                        @if (FoodDelivery.PL.Controllers.HomeController.CntAdd != 0)
+                        {
+                            <div id="cnter">
+                                <span style="color: darkred">
+                                    @FoodDelivery.PL.Controllers.HomeController.CntAdd
+                                </span>
+                            </div>
+                        }
+                        <div style="cursor: move">
+                            <a href="~/Home/MainPage?isShopCart=true" style="">
+                                <img src="~/Photos/Logo/cart.png" width="60" height="60" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else { }
+
+            <nav id="nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-inverse-info"
+                 style="background-image: linear-gradient( red, red); border: 2px solid red; border-radius: 0px; padding: 9px ">
+                <div class="container-fluid" style="">
+                    @Html.ActionLink("Food Delivery", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "hompg" })
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse" style="text-align:center">
+                        <div class="navbar-nav">
+                            &nbsp;                        &nbsp;                        &nbsp;                        &nbsp;                        &nbsp;                &nbsp;
+                            @Html.ActionLink("Наші контакти", "MainPage", "Home", new { param = "Contacts" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Доставка", "MainPage", "Home", new { param = "Delivery" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Оплата", "MainPage", "Home", new { param = "Payments" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Корзина", "MainPage", "Home", new { isShopCart = "true" }, new { id = "btn", @class = "nav-item nav-link" })
+                        </div>
+                        <div class="navbar-nav ms-auto">
+                            @Html.Partial("_LoginPartial")
+                        </div>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p style="text-align:center;font-weight:bold">&copy; @DateTime.Now.Year - Food Delivery</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+<style>
+    #bdy {
+        background: url(../../Photos/background.png) center fixed;
+        background-size: cover
+    }
+    #btn {
+        font-size:large;
+        margin-right:10px;
+        border: 0.1px solid transparent;
+        border-radius: 9px;
+        font-family: Palatino Linotype;
+        font-weight: bold;
+        color: white;
+    }
+
+        #btn:hover {
+            color: yellow;
+        }
+
+        #btn:active {
+            color: gold;
+        }
+
+    #hompg {
+        margin-left:60px;
+        border-radius: 9px;
+        color: white;
+        padding: 9px;
+        background-color: #8e44ad;
+        border: 0.1px solid #8e44ad;
+        background-image: linear-gradient(violet, blue);
+        font-weight: bold;
+        font-family: Palatino Linotype;
+        font-size: x-large;
+    }
+
+    #hompg:hover {
+        border-radius: 9px;
+        color: white;
+        padding: 9px;
+        background-color: #8e44ad;
+        border: 0.1px solid #8e44ad;
+        background-image: linear-gradient(violet, lightblue);
+    }
+
+    #hompg:active {
+        border-radius: 9px;
+        border: 0.1px solid gold;
+        background-color: gold;
+        color: black;
+    }
+
+  
+</style>

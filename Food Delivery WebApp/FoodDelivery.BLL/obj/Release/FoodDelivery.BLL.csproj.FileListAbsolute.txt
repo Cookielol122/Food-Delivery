@@ -1,0 +1,12 @@
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\bin\Release\FoodDelivery.BLL.dll
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\bin\Release\FoodDelivery.BLL.pdb
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\bin\Release\FoodDelivery.DAL.dll
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\bin\Release\EntityFramework.dll
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\bin\Release\FoodDelivery.DAL.pdb
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\bin\Release\FoodDelivery.DAL.dll.config
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\bin\Release\EntityFramework.xml
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\obj\Release\FoodDelivery.BLL.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\obj\Release\FoodDelivery.BLL.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\obj\Release\FoodDelivery.BLL.csproj.CopyComplete
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\obj\Release\FoodDelivery.BLL.dll
+C:\Users\user\source\repos\Food-Delivery\Food Delivery WebApp\FoodDelivery.BLL\obj\Release\FoodDelivery.BLL.pdb

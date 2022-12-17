@@ -78,6 +78,7 @@
                 IsCart = true;
                 FillCart();
             }
+            if (page != null) param = null;
             if (param != null)
                 ViewBag.PartialView = TopMenuClicked(param);
             else isTopMenu = false;

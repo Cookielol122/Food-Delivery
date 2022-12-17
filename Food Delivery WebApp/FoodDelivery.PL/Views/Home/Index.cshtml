@@ -15,7 +15,7 @@
 </div>
 
 <div id="btnM">
-    @Html.ActionLink("МЕНЮ", "MainPage" , "Home", null, new { @class = "btn btn-primary", id = "#menuBtn" })
+    @Html.ActionLink("МЕНЮ", "MainPage" , "Home", null, new { @class = "btn btn-primary", id = "menuBtn" })
 </div>
 
 
@@ -23,10 +23,16 @@
 
 <style>
     #menuBtn{
-        font-size:x-large;
+      font-size:large;
+        background-color:red;
+        border:1px solid red;
     }
-    #btnM {
-        text-align: center;
-    }
+        #menuBtn:hover {
+            background-color: darkred;
+            border: 1px solid darkred;
+        }
+        #btnM {
+            text-align: center;
+        }
 
 </style>

@@ -19,8 +19,20 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right" >
         <li>@Html.ActionLink("Увійти", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
+
+<style>
+    #loginLink{
+ background-color:red;
+ border:1px solid darkred;
+    }
+        #loginLink:hover {
+            background-color: gold;
+            border: 1px solid gold;
+            color:red;
+        }
+</style>
 

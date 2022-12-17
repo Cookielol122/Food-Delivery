@@ -35,7 +35,7 @@
             @if (FoodDelivery.PL.Controllers.HomeController.IsOrder == true)
             {
                 <div style="position:absolute">
-            <div id="cartFixed" style="cursor: move" class="">
+            <div id="cartFixed" style="cursor: move;background-color:transparent;border:0px solid transparent" class="">
                 @if (FoodDelivery.PL.Controllers.HomeController.CntAdd != 0)
                 {
                     <div id="cnter">
@@ -54,7 +54,7 @@
 else { }
 
             <nav id="nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-inverse-info"
-                 style="background-image: linear-gradient( blue, blue); border: 2px solid blue; border-radius: 0px; padding: 9px ">
+                 style="background-image: linear-gradient( red, red); border: 2px solid red; border-radius: 0px; padding: 9px ">
                 <div class="container-fluid" style="">
                     @Html.ActionLink("Food Delivery", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "hompg" })
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -158,6 +158,12 @@ else { }
 </body>
 </html>
 
+<style>
+    #bdy {
+        /*background: url(../../Photos/Logo/paper.gif) center fixed;*/
+        background-size: cover 
+    }
+</style>
 
 
 

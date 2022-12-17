@@ -1,0 +1,48 @@
+﻿
+
+@{
+    List<FoodDelivery.BLL.Dto.CategoryDto> categories = ViewBag.Categories;
+
+
+    <div class="row" style="">
+        <div style="background-color:whitesmoke;padding:9px;color:mediumvioletred;font-weight:bold">
+            <span style="font-family:'Palatino Linotype';font-size:large">Всі категорії</span>
+        </div>
+        @foreach (var category in categories)
+        {
+            <div class="col-3" style="margin-top: 9px; text-align: center;">
+                <button id="btnCateg"
+                        class="movie-btn widscreen-btn col btn btn-default"
+                        name="btn-@category.TagName"
+                        style="text-align:center;width:100%">
+                    <div style="height:50px;width:50px;margin:auto;text-align:center">
+                        <img class="movie-btn widscreen-btn" height="100%" width="100%"
+                             style="" src="~/Photos/Categories/@category.Photo" />
+                    </div>
+                    <div style="height:40px;width:100%; font-size:large">
+                        <span id="name">@category.Name</span>
+                    </div>
+                </button>
+            </div>
+        }
+    </div>
+}
+
+<style>
+    #name {
+        color: darkred;
+    }
+
+        #name:hover {
+            color: gold;
+        }
+
+    #photoBorder {
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+        #photoBorder:hover {
+            color: gold;
+        }
+</style>

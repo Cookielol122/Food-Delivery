@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - FoodSpace</title>
+
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/prodList.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script src="~/Scripts/Site.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    @*<link rel="stylesheet" media="screen and (max-width: 600px)" href="~/Content/prodList.css">*@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+</head>
+
+<body id="bdy">
+
+    <div style="opacity:0.97;margin-top:40px" id="id01" class="w3-modal">
+        @Html.Partial("~/Views/PartialViews/MessagePart.cshtml")
+    </div>
+
+    <div style="position:absolute" class="col-md-pull-2">
+        <header>
+
+            @if (FoodDelivery.PL.Controllers.HomeController.IsOrder == true)
+            {
+                <div style="position:absolute">
+            <div id="cartFixed" style="cursor: move;background-color:transparent;border:0px solid transparent" class="">
+                @if (FoodDelivery.PL.Controllers.HomeController.CntAdd != 0)
+                {
+                    <div id="cnter">
+                        <span style="color: darkred">
+                            @FoodDelivery.PL.Controllers.HomeController.CntAdd
+                        </span>
+                    </div>
+                }
+        <div style="cursor: move">
+            <a href="~/Home/MainPage?isShopCart=true" style="">
+                <img src="~/Photos/Logo/cart.png" width="60" height="60" />
+            </a>
+        </div>
+    </div>
+</div>}
+else { }
+
+            <nav id="nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-inverse-info"
+                 style="background-image: linear-gradient( red, red); border: 2px solid red; border-radius: 0px; padding: 9px ">
+                <div class="container-fluid" style="">
+                    @Html.ActionLink("Food Delivery", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "hompg" })
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse" style="text-align:center">
+                        <div class="navbar-nav">
+                            &nbsp;                        &nbsp;                        &nbsp;                        &nbsp;                        &nbsp;                &nbsp;
+                            @Html.ActionLink("Наші контакти", "MainPage", "Home", new { param = "Contacts" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Доставка", "MainPage", "Home", new { param = "Delivery" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Оплата", "MainPage", "Home", new { param = "Payments" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Корзина", "MainPage", "Home", new { isShopCart = "true" }, new { id = "btn", @class = "nav-item nav-link" })
+                        </div>
+                        <div class="navbar-nav ms-auto">
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+        </header>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center  text-white" style="background-color: black">
+        <div class="container p-4 pb-0">
+            <section>
+                <p class="d-flex justify-content-center align-items-center">
+                    <button id="cback" onclick="document.getElementById('id01').style.display='block'"
+                            class="btn btn-outline-light btn-rounded">
+                        Написати нам
+                    </button>
+                </p>
+            </section>
+
+            <hr class="mb-4" />
+
+            <section class="">
+                <p class="d-flex justify-content-center align-items-center">
+                    <span class="me-3" style="">Register for free</span>
+                    @Html.ActionLink("Sign up!", "Register", "Account", null, new { @class = "btn btn-outline-light btn-rounded" })
+                </p>
+            </section>
+
+            <hr class="mb-4" />
+
+            <section class="mb-4 text-center">
+                <a class="btn btn-outline-light btn-floating m-1"
+                   href="http://www.facebook.com/"
+                   target="_blank"
+                   role="button">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a class="btn btn-outline-light btn-floating m-1"
+                   href="#!"
+                   role="button">
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+                <a class="btn btn-outline-light btn-floating m-1"
+                   href="mailto:test1@gmail.com" target="_blank"
+                   role="button">
+                    <i class="fab fa-google"></i>
+                </a>
+
+                <a class="btn btn-outline-light btn-floating m-1"
+                   href="" target="_blank"
+                   role="button">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a class="btn btn-outline-light btn-floating m-1"
+                   href="https://wa.me/0634392871" target="_blank"
+                   role="button">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+
+                <a class="btn btn-outline-light btn-floating m-1"
+                   href="viber://public?id=0634392871" target="_blank"
+                   role="button">
+                    <i class="fab fa-viber"></i>
+                </a>
+            </section>
+        </div>
+
+        <div class="text-center p-3"
+             style="background-color: rgba(0, 0, 0, 0.2)">
+            <a style="text-decoration:none" class="text-white" href="#">
+                &copy; @DateTime.Now.Year - Food Space / foodspace.com.ua. Best Buy Online
+            </a>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<style>
+    #bdy {
+        /*background: url(../../Photos/Logo/paper.gif) center fixed;*/
+        background-size: cover 
+    }
+</style>
+
+
+

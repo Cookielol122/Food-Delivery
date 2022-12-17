@@ -15,7 +15,7 @@
             @if (FoodDelivery.PL.Controllers.HomeController.IsOrder == true)
             {
                 <div style="position:absolute">
-                    <div id="cartFixed" style="cursor: move" class="">
+                    <div id="cartFixed" style="cursor: move; background-color: transparent; border: 0px solid transparent" class="">
                         @if (FoodDelivery.PL.Controllers.HomeController.CntAdd != 0)
                         {
                             <div id="cnter">
@@ -35,7 +35,7 @@
             else { }
 
             <nav id="nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-inverse-info"
-                 style="background-image: linear-gradient( blue, blue); border: 2px solid blue; border-radius: 0px; padding: 9px ">
+                 style="background-image: linear-gradient( red, red); border: 2px solid red; border-radius: 0px; padding: 9px ">
                 <div class="container-fluid" style="">
                     @Html.ActionLink("Food Delivery", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "hompg" })
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -44,10 +44,10 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse" style="text-align:center">
                         <div class="navbar-nav">
                             &nbsp;                        &nbsp;                        &nbsp;                        &nbsp;                        &nbsp;                &nbsp;
-                            @Html.ActionLink("Contacts", "MainPage", "Home", new { param = "Contacts" }, new { id = "btn", @class = "nav-item nav-link" })
-                            @Html.ActionLink("Delivery", "MainPage", "Home", new { param = "Delivery" }, new { id = "btn", @class = "nav-item nav-link" })
-                            @Html.ActionLink("Payments", "MainPage", "Home", new { param = "Payments" }, new { id = "btn", @class = "nav-item nav-link" })
-                            @Html.ActionLink("Cart", "MainPage", "Home", new { isShopCart = "true" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Наші контакти", "MainPage", "Home", new { param = "Contacts" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Доставка", "MainPage", "Home", new { param = "Delivery" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Оплата", "MainPage", "Home", new { param = "Payments" }, new { id = "btn", @class = "nav-item nav-link" })
+                            @Html.ActionLink("Корзина", "MainPage", "Home", new { isShopCart = "true" }, new { id = "btn", @class = "nav-item nav-link" })
                         </div>
                         <div class="navbar-nav ms-auto">
                             @Html.Partial("_LoginPartial")

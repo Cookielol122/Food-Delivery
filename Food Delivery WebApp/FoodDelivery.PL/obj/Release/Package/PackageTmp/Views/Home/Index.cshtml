@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Food Delivery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="" >
+    @*<div class="col" hidden>
+        dsfsdfsdfsfdsfssdfsdfsdfsdfsfssdfsdfsdfsdfsfdsdfsdfsdfsdfsdfs
+        dsfsdfsdfsfdsfssdfsdfsdfsdfsfssdfsdfsdfsdfsfdsdfsdfsdfsdfsdfs
+        dsfsdfsdfsfdsfssdfsdfsdfsdfsfssdfsdfsdfsdfsfdsdfsdfsdfsdfsdfs
+        dsfsdfsdfsfdsfssdfsdfsdfsdfsfssdfsdfsdfsdfsfdsdfsdfsdfsdfsdfs
+    </div>*@
+    <img src="~/Photos/logo.png" width="" height="500" alt="FOODSpace" />
+</div>
+
+<div id="btnM">
+    @Html.ActionLink("МЕНЮ", "MainPage" , "Home", null, new { @class = "btn btn-primary", id = "menuBtn" })
+</div>
+
+
+
+
+<style>
+    #menuBtn{
+      font-size:large;
+        background-color:red;
+        border:1px solid red;
+    }
+        #menuBtn:hover {
+            background-color: darkred;
+            border: 1px solid darkred;
+        }
+        #btnM {
+            text-align: center;
+        }
+
+</style>

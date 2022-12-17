@@ -1,0 +1,338 @@
+﻿@model PagedList.IPagedList<FoodDelivery.BLL.Dto.ProductDto>
+@using PagedList.Mvc;
+
+@{ ViewBag.Title = "Food Delivery";
+    Layout = "~/Views/Shared/_MainLayout.cshtml"; }
+
+<br /><br /><br />
+@if (FoodDelivery.PL.Controllers.HomeController.IsCart == true)
+{
+    Html.RenderPartial("~/Views/PartialViews/CartPart.cshtml", (List<FoodDelivery.BLL.Dto.CartDto>)ViewBag.Cart);
+    FoodDelivery.PL.Controllers.HomeController.IsCart = false;
+}
+
+@if (FoodDelivery.PL.Controllers.HomeController.IsModal)
+{
+<div style="" class="alert alert-success alert-dismissible">
+    <a href="~/Home/CloseAlerts" class="close" data-dismiss="alert" style="text-decoration: none;text-align:right; font-size: large; color: #82822f"
+       aria-label="close">&times;</a>
+    <h4 style="text-align:center;color:brown;font-family:'Palatino Linotype';font-weight:bold">
+        @FoodDelivery.PL.Controllers.HomeController.ModalMsg
+    </h4>
+</div>}
+
+@using (Html.BeginForm("MainPage", "Home", FormMethod.Post))
+{
+<div class="row" style="padding:9px">
+
+    <!-- List of Categories: -->
+
+    <div class="col-sm-3" style="">
+        @*background-image: linear-gradient(blue, darkblue,blue) "*@
+        @*<div class="col">
+            <button type="button" class="categToggle"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#categoryColase">
+                Звернути/Розвернути список категорій
+            </button>
+        </div>*@
+        <div id="" style="text-align:center">
+            <div class="d-flex" style="width: 100%" id="wrapper">
+                <div style="width: 100%" class="list-group list-group-item-heading">
+                    @Html.ActionLink("Усі категорії", "MainPage", "Home", new { param = "AllCategoryPart" }, new { id = "btnCateg", style = "background-color:black;color:red", @class = "btn btn-default" })
+                    @foreach (var item in ViewBag.Categories)
+                    {
+    <button id="btnCateg" class="btn btn-default" name="btn-@item.TagName"> @item.Name </button>}
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacts: -->
+        <hr />
+        <header style="">
+            <h2 style="padding: 6px;font-weight:bold; font-family: 'Times New Roman', Times, serif; font-size: larger; color: saddlebrown" href="#">
+                    Contacts
+            </h2>
+        </header>
+        <div style="width:100%" class="col-sm-3">
+            <hr />
+            <ul class="list-group">
+                <li class="list-group-item" id="l1">
+                    <i class="bi bi-geo-alt" style="border-radius:53px;padding:7px;background-color:azure"></i>
+                    <span class="">
+                        <span class="">Україна, Івано-Франківськ : Lychakivska, 31 str. /  Address: Stadnykova 2a</span>
+                    </span>
+                </li>
+                <li class="list-group-item" id="l2">
+                    <i style="border-radius:53px;padding:7px;background-color:azure" class="bi bi-telephone-inbound"></i>
+                    <a class="" href="tel:380634345678">
+                        38 (063) 123456
+                    </a>
+                </li>
+                <li class="list-group-item" id="l3">
+                    <i style="border-radius:53px;padding:7px;background-color:azure" class="bi bi-alarm"></i>
+                    <span>Lviv shop Mon - Fri 10am - 6 pm,  Shop 10:30 am - 8 pm</span>
+                    <span>Saturday 11am-5pm</span>
+                    <span>Sunday - day off</span>
+                </li>
+                <li class="list-group-item" id="l4">
+                    <i style="border-radius:53px;padding:7px;background-color:azure" class="bi bi-envelope-paper"></i>
+                    <a href="mailto:dfdfdfd@gmail.com" target="_blank"><small>foodspace@gmail.com</small></a>
+                </li>
+                <li class="list-group-item" id="l5">
+                    <i style="border-radius:53px;padding:7px;background-color:azure" class="bi bi-whatsapp">
+                    </i>
+                    <a href="https://wa.me/063439287" target="_blank">+38 099 5445343</a>
+                </li>
+            </ul>
+            <hr />
+        </div>     
+    </div>
+
+
+    <div class="col-md-9" style="">
+        @if (FoodDelivery.PL.Controllers.HomeController.isTopMenu == true)
+        {
+            string p = "~/Views/PartialViews/" + ViewBag.PartialView + ".cshtml";
+            <div class="col">
+                @Html.Partial(p)
+            </div>
+        }
+        else if (ViewBag.CategoryPressed == true)
+        {
+    <div class="col">
+        <div class="row" style="">
+            <div style="background-color:whitesmoke;padding:9px;color:mediumvioletred;font-weight:bold">
+                <span style="font-family:'Palatino Linotype';font-size:large">
+                    Категорія /
+                    <span style="color: darkorange; font-family: 'Palatino Linotype'; font-size: large;color:red">
+                        @ViewBag.CategoryName
+                    </span>
+                </span>
+            </div>
+            @if (Model.Count == 0)
+            {
+                <h2 style="color:red;font-family:'Palatino Linotype';text-align:center;margin-top:22px">
+                    Список товарів пустий...
+                </h2>
+            }
+            else
+            {
+                foreach (var product in Model)
+                {
+                    string Path = "~/Photos/Products/" + product.Photo;
+    <div class="col-md-3" style="margin-top:20px">
+        <div class="card p-2 col" style="text-align:center">
+            <div id="phto" style="height:300px;width:100%">
+                <img src="@Url.Content(Path)"
+                     style="text-align:center;background-size:cover"
+                     width="100%" height="100%" alt="Image is Not Opened" />
+            </div>
+            <div class="product-details" style="min-height:auto">
+                <span style="color:mediumblue;font-family:'Palatino Linotype';font-weight:bold" class="font-weight-bold d-block">@product.Price.ToString("N2") грн</span>
+                <div style="word-break: break-all;min-height:80px">@product.Name</div>
+                <div><small style="color:firebrick">Serial:&nbsp;@product.Code</small></div>
+                <div class="buttons d-flex flex-row">
+                    <div style="width:20%" class="cart"><i class="fa fa-shopping-cart"></i></div>
+                    <div style="">
+                        @if (product.isStock == true)
+                        {
+    <button style="width:100%" name="btn-@product.Code" class="btn btn-success cart-button btn-block">
+        <span class="dot">1</span>В корзину
+    </button>}
+                        else
+                        {
+                        }
+                    </div>
+                </div>
+                <div class="weight">
+                    @if (product.isStock == true)
+                    {
+    <small style="color:green;font-weight:bold">В наявності</small>
+                    }
+                    else
+                    {
+    <small style="color: red; font-weight: bold">Не в наявності</small>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>}
+            }
+            @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) from @Model.PageCount*@
+            @Html.PagedListPager(Model, page => Url.Action("MainPage", new { page }))
+        </div>
+    </div>}
+    </div>
+</div>}
+
+
+
+
+
+
+<style>
+    /* List of Products */
+    @@import url('prodList.css');
+
+    @@media only screen and (max-width: 600px) {
+        #phto {
+            height: 750px;
+        }
+    }
+
+    .wrapper {
+        margin-top: 30px;
+    }
+
+    .card {
+        border: 1px solid #eee;
+        cursor: pointer;
+    }
+
+
+    .weight {
+        /*margin-top: -65px;*/
+        transition: all 0.5s;
+    }
+
+        .weight small {
+            color: #e2dede;
+        }
+
+    .buttons {
+        padding: 10px;
+        background-color: #d6d4d44f;
+        border-radius: 4px;
+        position: relative;
+        margin-top: 7px;
+        opacity: 0;
+        transition: all 0.8s;
+    }
+
+    .dot {
+        height: 14px;
+        width: 14px;
+        background-color: green;
+        border-radius: 50%;
+        position: absolute;
+        left: 27%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 8px;
+        color: #fff;
+        opacity: 0;
+    }
+
+    .cart-button {
+        height: 48px
+    }
+
+        .cart-button:focus {
+            box-shadow: none
+        }
+
+    .cart {
+        position: relative;
+        height: 48px !important;
+        width: 20px;
+        margin-right: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        padding: 11px;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: 1s ease-in-out;
+        overflow: hidden;
+    }
+
+    .cart-button.clicked span.dot {
+        animation: item 0.3s ease-in forwards
+    }
+
+    @@keyframes item {
+        0% {
+            opacity: 1;
+            top: 30%;
+            left: 30%
+        }
+
+        25% {
+            opacity: 1;
+            left: 26%;
+            top: 0%
+        }
+
+        50% {
+            opacity: 1;
+            left: 23%;
+            top: -22%
+        }
+
+        75% {
+            opacity: 1;
+            left: 19%;
+            top: -18%
+        }
+
+        100% {
+            opacity: 1;
+            left: 14%;
+            top: 28%
+        }
+    }
+
+
+
+    .card:hover .buttons {
+        opacity: 1;
+    }
+
+
+    .card:hover .weight {
+        margin-top: 10px;
+    }
+
+    .card:hover {
+        transform: scale(1.04);
+        z-index: 2;
+        overflow: hidden;
+    }
+
+
+
+
+    /* other */
+    .item {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        max-height: 600px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+    }
+
+    .price {
+        color: grey;
+        font-size: 22px;
+    }
+
+    .item button {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+    }
+
+        .item button:hover {
+            opacity: 0.7;
+        }
+</style>
