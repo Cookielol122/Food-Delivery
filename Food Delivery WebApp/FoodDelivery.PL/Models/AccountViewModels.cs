@@ -87,6 +87,7 @@ namespace FoodDelivery.PL.Models
         public string Role { get; set; }
         public System.DateTime DateOfRegister{ get; set; }
         public int UserId { get; set; }
+        public bool IsCourier { get; set; }
     }
 
     public class ResetPasswordViewModel

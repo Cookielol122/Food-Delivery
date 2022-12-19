@@ -56,7 +56,10 @@ else { }
             <nav id="nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-inverse-info"
                  style="background-image: linear-gradient( red, red); border: 2px solid red; border-radius: 0px; padding: 9px ">
                 <div class="container-fluid" style="">
-                    @Html.ActionLink("Food Delivery", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "hompg" })
+                    <a href="~/Home/MainPage?param=AllCategoryPart">
+                        <img src="~/Photos/FOODSPACE.png" width="160" height="60" alt="Food Delivery" id="hompg" />
+                    </a>
+                    @*@Html.ActionLink("Food Delivery", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "hompg" })*@
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -114,7 +117,7 @@ else { }
                 </a>
 
                 <a class="btn btn-outline-light btn-floating m-1"
-                   href="#!"
+                   href="http://www.twitter.com"
                    role="button">
                     <i class="fab fa-twitter"></i>
                 </a>
@@ -126,19 +129,19 @@ else { }
                 </a>
 
                 <a class="btn btn-outline-light btn-floating m-1"
-                   href="" target="_blank"
+                   href="https://instagram.com" target="_blank"
                    role="button">
                     <i class="fab fa-instagram"></i>
                 </a>
 
                 <a class="btn btn-outline-light btn-floating m-1"
-                   href="https://wa.me/0634392871" target="_blank"
+                   href="https://wa.me" target="_blank"
                    role="button">
                     <i class="fab fa-whatsapp"></i>
                 </a>
 
                 <a class="btn btn-outline-light btn-floating m-1"
-                   href="viber://public?id=0634392871" target="_blank"
+                   href="viber://public?id=" target="_blank"
                    role="button">
                     <i class="fab fa-viber"></i>
                 </a>
@@ -163,6 +166,29 @@ else { }
         /*background: url(../../Photos/Logo/paper.gif) center fixed;*/
         background-size: cover 
     }
+
+
+    #hompg {
+        margin-left: 60px;
+        border-radius: 9px;
+        color: white;
+        padding: 0px;
+        background-color: transparent;
+        border: 0.1px solid transparent;
+        background-image: linear-gradient(transparent, transparent);
+        font-weight: bold;
+        font-family: Palatino Linotype;
+        font-size: x-large;
+    }
+        #hompg:hover {
+            border: 0.1px solid transparent;
+            border-radius: 9px;
+            color: white;
+            padding: 0px;
+            background-color: transparent;
+            background-color: transparent;
+            background-image: linear-gradient(transparent, transparent);
+        }
 </style>
 
 

@@ -1,0 +1,623 @@
+﻿@model IEnumerable<FoodDelivery.PL.Models.ApplicationUser>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Page - Food Space</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/Content/AdminPanel/plugins/fontawesome-free/css/all.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/Content/AdminPanel/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/AdminPanel/dist/css/adminlte.min.css">
+</head>
+
+@{
+    var messages = ViewBag.Messages as List<FoodDelivery.BLL.Dto.MessageDto>;
+    var users = ViewBag.Users as List<FoodDelivery.PL.Models.ApplicationUser>;
+    var currentMessages = messages.OrderByDescending(d => d.DateMessage);
+}
+
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__wobble" src="~/Content/AdminPanel/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+        </div>
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    @Html.ActionLink("Home page", "_829528a_441d_484m_862i_22475963ffdn", "Admin", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    @Html.ActionLink("My Data", "_829528a_441d_484m_862i_22475963ffdn", "Admin", new { isPartView = "true", partViewName = "MyDataPart" }, new { @class = "nav-link" })
+                    <a href="#"></a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">            
+
+                <!-- Messages Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-comments"></i>
+                        <span class="badge badge-danger navbar-badge">@messages.Count</span>
+                    </a>
+                    @{
+                        var cnt = 4; // will be shown only 3 fresh messages
+                        if (ViewBag.IsShownAllMsg == true)
+                        {
+                            cnt = messages.Count + 1;
+                        }
+                    }
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        @foreach (var msg in currentMessages)
+                        {
+                            --cnt;
+                            if (cnt == 0)
+                            {
+                                break;
+                            }
+                            var sender = users.FirstOrDefault(u => u.UserId == msg.SenderId);
+                            <a href="/Admin/_829528a_441d_484m_862i_22475963ffdn?isPartView=true" class="dropdown-item">
+                                <!-- Message Start -->
+                                <div class="media" style="width:300px">
+                                    <img src="~/Content/AdminPanel/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                    <div class="media-body">
+                                        <h3 class="dropdown-item-title">
+                                            @if (sender.Role == "Guest")
+                                            {
+                                                <span>@sender.Firs_Name</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@sender.Firs_Name&nbsp;@sender.Last_Name</span>
+                                            }
+
+                                            @if(true)
+                                            //if (!msg.IsReviwed) // if message not reviewed
+                                            {
+                                                <span class=" text-sm text-warning"><i class="fas fa-star"></i></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-sm text-danger"><i class="fas fa-star"></i></span>
+                                            }
+                                        </h3>
+                                        <p class="text-sm">@msg.Title...</p>
+                                        @{
+                                            TimeSpan diff = DateTime.Now - msg.DateMessage;
+                                            var leftHours = (int)diff.TotalHours;
+                                        }
+                                        <p class="text-sm text-muted">
+                                            <i class="far fa-clock mr-1">
+                                            </i>@leftHours Hours Ago
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Message End -->
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        }
+
+                        @if (ViewBag.IsShownAllMsg == false)
+                        {
+                            <a href="/Admin/_829528a_441d_484m_862i_22475963ffdn?isShowMsg=true"
+                               class="dropdown-item dropdown-footer">
+                                See All Messages
+                            </a>
+                        }
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                        <i class="fas fa-th-large"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/Home/MainPage" target="_blank" class="brand-link">
+                <img src="~/Content/AdminPanel/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">Food Space</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="~/Content/AdminPanel/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">@ViewBag.AdminName</a>
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <p>
+                                <div style="display: inline-block; width: 50px; margin-left: 10px; text-align: center">
+                                    <i style="border: 0.5px solid; padding: 5px; width: 40px" class="fas fa-users"></i>
+                                </div>
+                                <div style="display: inline-block; margin-left: 10px">
+                                    @Html.ActionLink("All users", "_829528a_441d_484m_862i_22475963ffdn", "Admin",
+new { isPartView = "true", partViewName = "UsersInfoPart" }, new { @class = "nav-link", id = "ubrm" })
+                                </div>
+                            </p>
+                        </li>
+                        <li class="nav-item">
+                            <p>
+                                <div style="display: inline-block; width: 50px; margin-left: 10px; text-align: center">
+                                    <i style="border: 0.5px solid; padding: 5px; width: 40px" class="fas fa-user-secret"></i>
+                                </div>
+                                <div style="display: inline-block; margin-left: 10px">
+                                    @Html.ActionLink("User's Credentials", "_829528a_441d_484m_862i_22475963ffdn", "Admin",
+new { isPartView = "true", partViewName = "UsersLoginPass" }, new { @class = "nav-link", id = "ubrm" })
+                                </div>
+                            </p>
+                        </li>
+                        @{
+                            var categtories = ViewBag.Categories as List<FoodDelivery.BLL.Dto.CategoryDto>;
+                        }
+                        <li class="nav-item">
+                            <p>
+                                <div class="nav-item" style="display: inline-block; width: 50px; margin-left: 10px;text-align:center">
+                                    <i style="border: 0.5px solid; padding: 5px; width: 40px" class="fas  fa-icons"></i>
+                                </div>
+                                <div style="display: inline-block; margin-left: 10px">
+                                    <a id="ubrm" href="#" class="nav-link">Categories</a>
+                                </div>
+                            </p>
+                            @foreach (var c in categtories)
+                            {
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item" style="margin-top:5px">
+                                        <div class="nav-item" style="display: inline-block; width: 50px; margin-left: 10px;text-align:center">
+                                            <i class="far fa-chess-rook nav-icon"></i>
+                                        </div>
+                                        <div style="display: inline-block; margin-left: 10px">
+                                            @Html.ActionLink(@c.Name, "_829528a_441d_484m_862i_22475963ffdn", "admin",
+new { isPartView = "true", partViewName = "ProductsPart", categId = @c.Id }, new { @class = "nav-link", id = "msgType" })
+                                        </div>
+                                    </li>
+                                </ul>
+                            }
+                        </li>
+                        <li class="nav-item">
+                            <p>
+                                <div class="nav-item" style="display: inline-block; width: 50px; margin-left: 10px;text-align:center">
+                                    <i style="border:0.5px solid;padding:5px;width:40px" class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div style="display: inline-block; margin-left: 10px">
+                                    @Html.ActionLink("Men.1", "_829528a_441d_484m_862i_22475963ffdn", "Admin", new { param = "RequestsPart" }, new { @class = "nav-link", id = "ubrm" })
+                                </div>
+                            </p>
+                        </li>
+
+                        <li class="nav-item">
+                            <p>
+                                <div class="nav-item" style="display: inline-block; width: 50px; margin-left: 10px;text-align:center">
+                                    <i style="border:0.5px solid;padding:5px;width:40px" class="fas fa-comment nav-icon"></i>
+                                </div>
+                                <div style="display: inline-block; margin-left: 10px">
+                                    <a id="ubrm" href="#" class="nav-link">Messages</a>
+                                </div>
+                            </p>                       
+                        </li>
+
+                        <li class="nav-header">Настройка сайту</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-circle nav-icon"></i>
+                                <p>Категорії</p>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        @Html.ActionLink("Всі категорії", "_829528a_441d_484m_862i_22475963ffdn", "admin",
+new { isPartView = "true", partViewName = "CategoryPart" }, new { @class = "nav-link", id = "msgType" })
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-circle"></i>
+                                <p>
+                                    Slider Setting
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Images</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Change inteval (ms)
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-circle nav-icon"></i>
+                                <p>Background</p>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Set Background Image</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Set Background Color
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-circle nav-icon"></i>
+                                <p>Footer</p>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Set main text</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="clearfix hidden-md-up"></div>
+                        @{
+                            var allOrders = ViewBag.Orders as List<FoodDelivery.BLL.Dto.OrderDto>;
+                            var allOrds = allOrders == null ? 0 : allOrders.Count;
+                            var totalIncm = allOrders == null ? 0 : allOrders.Sum(t => t.TotalAmount);
+                            var registered = ViewBag.Users as List<FoodDelivery.PL.Models.ApplicationUser>;
+                            var regCnt = registered.Where(r => r.Role == "RegisterUser").ToList();
+                            var regUserCnt = regCnt == null ? 0 : regCnt.Count;
+                        }
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/Admin/SelectPartView?type=TotalIncomePart" id="sels" class="info-box mb-3">
+                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-money-bill"></i></span>
+
+                                <div class="info-box-content" style="text-align:center">
+                                    <span type="submit" name="btn-AllOrders" class="info-box-text">Всі замовлення</span>
+                                    <span class="info-box-number">@allOrds</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="#" id="sels" class="info-box mb-3">
+                                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-dollar-sign"></i></span>
+
+                                <div class="info-box-content" style="text-align:center">
+                                    <span class="info-box-text">Загальний прибуток</span>
+                                    <span class="info-box-number">@totalIncm&nbsp;UAH</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/Admin/SelectPartView?type=NewPersonsPart" id="sels" class="info-box mb-3">
+                                <span class="info-box-icon  elevation-1" style="background-color:yellow">
+                                    <i class="fas fa-users"></i>
+                                </span>
+
+                                <div class="info-box-content" style="text-align:center">
+                                    <span class="info-box-text">Зарегеєстровані користувачі</span>
+                                    <span class="info-box-number">@regUserCnt</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/Admin/SelectPartView?type=MessagesPart" id="sels" class="info-box mb-3">
+                                <span style="background-color:gold" class="info-box-icon  elevation-1">
+                                    <i style="color:white" class="far fa-comment light"></i>
+                                </span>
+
+                                <div class="info-box-content" style="text-align:center">
+                                    <span class="info-box-text">Messages</span>
+                                    <span class="info-box-number">@messages.Count</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </a>
+                            <!-- /.info-box -->
+                        </div>
+                        @*}
+                            }*@
+                        <div class="col-md-12">
+                            @if (@ViewBag.IsMsgRes == true)
+                            {
+                                <h3 style="text-align:center;color:green;background-color:aliceblue">
+                                </h3>
+                            }
+                            <div class="card">
+                                @if (ViewBag.IsMenuPart == true)
+                                {
+                                    <div class="card-header">
+                                        <h5 class="card-title">
+                                            <span style="text-align:center;color:gold">
+
+                                            </span>
+                                        </h5>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="fas fa-wrench"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                    <a href="#" class="dropdown-item">Action</a>
+                                                    <a href="#" class="dropdown-item">Another action</a>
+                                                    <a href="#" class="dropdown-item">Something else here</a>
+                                                    <a class="dropdown-divider"></a>
+                                                    <a href="#" class="dropdown-item">Separated link</a>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="" style="" id="partialsViews">
+                                            <!--- Здесь будут подставлятся частичные представления  -->
+                                            @if (ViewBag.IsPartialView == true)
+                                            {
+                                                if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.MyDataPart.ToString())
+                                                {
+                                                    <div class="" style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/PersonDataPart.cshtml")
+                                                    </div>
+                                                }
+                                                if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.UsersInfoPart.ToString())
+                                                {
+                                                    <div class="" style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/UserInfoPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.TotalIncomePart.ToString())
+                                                {
+                                                    <div style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/OrdersPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.NewPersonsPart.ToString())
+                                                {
+                                                    <div style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/NewPersonsPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.MessagesPart.ToString())
+                                                {
+                                                    <div style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/MessagesPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.CategoryPart.ToString())
+                                                {
+                                                    <div style="overflow: auto;width:100%">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/CategoryPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.ProductsPart.ToString())
+                                                {
+                                                    <div style="overflow: auto;width:100%">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/ProductsPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.AddProductPart.ToString())
+                                                {
+                                                    <div style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/AddProductPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.AddCategoryPart.ToString())
+                                                {
+                                                    <div style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/AddCategoryPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.EditProductPart.ToString())
+                                                {
+                                                    <div style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/Edit/EditProductPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.EditCategoryPart.ToString())
+                                                {
+                                                    <div style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/Edit/EditCategoryPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.MessagesPart.ToString())
+                                                {
+                                                    <div style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/MessagesPart.cshtml")
+                                                    </div>
+                                                }
+                                                else if (ViewBag.PartialView == AfricanShopLviv.PL.Controllers.ViewPartType.UsersLoginPass.ToString())
+                                                {
+                                                    <div style="overflow: auto; width: 100% ">
+                                                        @Html.Partial("~/Views/PartialViews/Admin/UsersLoginPass.cshtml")
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <!-- Main row -->
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Main Footer -->
+        <footer style="text-align:center" class="main-footer">
+            <strong>Copyright &copy; 2022 <a href="#">Admin Panel - @ViewBag.AdminName</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 3.2.0
+            </div>
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="~/Content/AdminPanel/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/Content/AdminPanel/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/Content/AdminPanel/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/AdminPanel/dist/js/adminlte.js"></script>
+    <!-- PAGE PLUGINS -->
+    <!-- jQuery Mapael -->
+    <script src="~/Content/AdminPanel/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="~/Content/AdminPanel/plugins/raphael/raphael.min.js"></script>
+    <script src="~/Content/AdminPanel/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="~/Content/AdminPanel/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/Content/AdminPanel/plugins/chart.js/Chart.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Content/AdminPanel/dist/js/demo.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/Content/AdminPanel/dist/js/pages/dashboard2.js"></script>
+
+    <style>
+        #sels {
+        }
+
+            #sels:hover {
+                background-color: lightgray;
+                color: grey;
+            }
+
+        #ubrm {
+            text-align: center;
+            width: 145px;
+            color: darkgoldenrod;
+            border: 0.5px solid darkgoldenrod;
+            padding: 5px;
+        }
+
+            #ubrm:hover {
+                color: gold;
+                border: 0.5px solid gold;
+                padding: 5px;
+            }
+
+        #msgType {
+            background-color: transparent;
+            border: 0.5px solid limegreen;
+            color: limegreen;
+            width: 145px;
+            padding: 5px;
+            text-align: center;
+        }
+
+            #msgType:hover {
+                border: 0.5px solid lime;
+                color: lime;
+            }
+    </style>
+</body>
+</html>
+
+

@@ -47,7 +47,7 @@ textarea {
     }
 
 #hompg {
-    margin-left: 60px;
+   /* margin-left: 60px;
     border-radius: 9px;
     color: white;
     padding: 9px;
@@ -56,9 +56,9 @@ textarea {
     background-image: linear-gradient(violet, blue);
     font-weight: bold;
     font-family: Palatino Linotype;
-    font-size: x-large;
+    font-size: x-large;*/
 }
-
+/*
     #hompg:hover {
         border-radius: 9px;
         color: white;
@@ -73,7 +73,7 @@ textarea {
         border: 0.1px solid gold;
         background-color: gold;
         color: black;
-    }
+    }*/
 
 /*                          Cart:*/
 #cnter {

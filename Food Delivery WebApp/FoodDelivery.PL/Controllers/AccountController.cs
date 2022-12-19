@@ -127,7 +127,7 @@ namespace FoodDelivery.PL.Controllers
                     Email = model.Email,
                     Firs_Name = model.Firs_Name,
                     Last_Name = model.Last_Name,
-                    Role = Role.RegisteredUser.ToString(),
+                    Role =  model.IsCourier ? Role.Corier.ToString() : Role.RegisteredUser.ToString(),
                     UserId = ++cntId,
                     DateOfRegister = DateTime.Now
 

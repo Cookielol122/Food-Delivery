@@ -61,6 +61,14 @@
                                     @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger", style = "font-size:small" })
                                 </div>
 
+                                <!-- Зарегеструватись як Курьєр: -->
+                                <div class="form-group" style="margin-top:-30px">
+                                    @Html.CheckBoxFor(p => p.IsCourier, new { id = "courier", Name = "courier" })
+                                    @Html.Label("Зареєструватись як Кур`єр?")
+                                    @*<input type="checkbox" id="courier" name="courier" class="" value="" />
+        <label for="courier">Зареєструватись як Кур`єр?</label>*@<br>
+                                </div>
+
                                 <div class="form-group">
                                     <button type="submit" class="form-control btn btn-primary submit px-3">Зарегеструватися</button>
                                 </div>
